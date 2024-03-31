@@ -1,20 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font'
+import * as Splashscreen from 'expo-splash-screen'
+
+// screens
+import Home from './screens/Home';
+import Loading from './screens/Loading'
+
+// utils
+import { color } from './utils/color';
+
+Splashscreen.preventAutoHideAsync()
 
 export default function App() {
+
+  const [fontsLoaded] = useFonts({
+    'poppins': require('./assets/fonts/Poppins-Regular.ttf'),
+    'poppins-l': require('./assets/fonts/Poppins-Light.ttf'),
+    'poppins-m': require('./assets/fonts/Poppins-Medium.ttf'),
+    'poppins-s': require('./assets/fonts/Poppins-SemiBold.ttf'),
+    'poppins-b': require('./assets/fonts/Poppins-Bold.ttf'),
+  })
+
+  if (!fontsLoaded) {
+    return <Loading />
+  } else {
+    Splashscreen.hideAsync();
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style='dark' backgroundColor={color.background} />
+      <Home />
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
