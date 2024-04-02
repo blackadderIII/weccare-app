@@ -5,6 +5,7 @@ import * as Splashscreen from 'expo-splash-screen'
 // screens
 import Home from './screens/Home';
 import Loading from './screens/Loading'
+import WriteCard from './screens/WriteCard';
 
 // utils
 import { color } from './utils/color';
@@ -30,7 +31,8 @@ export default function App() {
   return (
     <>
       <StatusBar style='dark' backgroundColor={color.background} />
-      <Home />
+      <WriteCard />
+      {/* <Home /> */}
     </>
   );
 }

@@ -24,11 +24,13 @@ const styles = StyleSheet.create({
     tabContainer: {
         width: horizontalScale(170),
         height: verticalScale(190),
-        backgroundColor: color.jet,
+        backgroundColor: '#ffffff',
         borderRadius: moderateScale(20),
         padding: moderateScale(20),
         justifyContent: 'space-between',
         marginHorizontal: horizontalScale(10),
+        elevation: 10,
+        shadowColor: '#0003',
     },
     icon: {
         fontSize: moderateScale(32)
@@ -38,13 +40,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'poppins-s',
         fontSize: moderateScale(54),
-        color: '#fff',
+        color: color.jet
     },
     tabNames: {
         width: '100%',
         textAlign: 'center',
         fontFamily: 'poppins',
         fontSize: moderateScale(14),
-        color: '#fff',
+        color: '#222222',
     },
 })

@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: moderateScale(20),
         marginHorizontal: horizontalScale(20),
-        marginBottom: verticalScale(20),
+        marginBottom: verticalScale(30),
     },
     mainText: {
         fontFamily: 'poppins-s',

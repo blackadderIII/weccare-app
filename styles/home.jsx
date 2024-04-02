@@ -18,26 +18,22 @@ export const home = StyleSheet.create({
         justifyContent: 'space-between',
         paddingHorizontal: horizontalScale(20),
         marginBottom: verticalScale(20),
-        // backgroundColor: 'pink',
     },
     headerText: {
         fontFamily: 'poppins-s',
         fontSize: moderateScale(32),
+        color: color.jet
     },
     headerImgContainer: {
         width: moderateScale(50),
         height: moderateScale(50),
         alignItems: 'center',
         justifyContent: 'center',
-        // borderColor: color.main,
-        // borderWidth: moderateScale(2),
     },
     headerImg: {
         width: moderateScale(40),
         height: moderateScale(40),
         borderRadius: moderateScale(15),
-        // borderColor: color.main,
-        // borderWidth: moderateScale(2),
     },
     titleText: {
         paddingLeft: horizontalScale(20),
@@ -48,6 +44,34 @@ export const home = StyleSheet.create({
     },
     summaryContainer: {
         width: '100%',
-        height: verticalScale(190),
+        height: verticalScale(210),
+        marginBottom: verticalScale(20),
+    },
+    recentCardContainer: {
+        width: '100%',
+        marginBottom: verticalScale(80),
+    },
+    writeButton: {
+        width: moderateScale(65),
+        height: moderateScale(65),
+        alignSelf: 'center',
+        backgroundColor: color.main,
+        borderRadius: moderateScale(50),
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: verticalScale(20),
+        right: horizontalScale(20),
+        zIndex: 2,
+    },
+    writeIcon: {
+        fontSize: moderateScale(24),
+        color: '#ffffff',
+    },
+    writeButtonText: {
+        fontFamily: 'poppins-s',
+        fontSize: moderateScale(14),
+        color: '#fff'
     },
 })
