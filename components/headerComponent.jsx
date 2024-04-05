@@ -6,13 +6,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { horizontalScale, moderateScale, verticalScale } from '../utils/metrics';
 import { color } from '../utils/color';
 
-export default function HeaderComponent({ onPress, title }) {
+export default function HeaderComponent({ theme, onPress, title }) {
     return (
-        <View style={styles.header}>
-            <TouchableOpacity activeOpacity={.7} onPress={onPress} style={styles.iconContainer}>
-                <Ionicons name="arrow-back-outline" size={24} color="black" style={styles.headerIcon} />
+        <View style={theme === 'light' ? styles.header : darkStyles.header}>
+            <TouchableOpacity activeOpacity={.7} onPress={onPress} style={theme === 'light' ? styles.iconContainer : darkStyles.iconContainer}>
+                <Ionicons name="arrow-back-outline" size={24} color="black" style={theme === 'light' ? styles.headerIcon : darkStyles.headerIcon} />
             </TouchableOpacity>
-            <Text style={styles.headerText}>{title}</Text>
+            <Text style={theme === 'light' ? styles.headerText : darkStyles.headerText}>{title}</Text>
         </View>
     )
 }
@@ -35,5 +35,26 @@ const styles = StyleSheet.create({
         fontFamily: 'poppins-s',
         fontSize: moderateScale(32),
         color: color.jet
+    },
+})
+
+const darkStyles = StyleSheet.create({
+    header: {
+        width: '100%',
+        height: verticalScale(90),
+        paddingHorizontal: horizontalScale(20),
+    },
+    iconContainer: {
+        width: moderateScale(30),
+        height: moderateScale(30),
+    },
+    headerIcon: {
+        fontSize: moderateScale(20),
+        color: '#ffffff',
+    },
+    headerText: {
+        fontFamily: 'poppins-s',
+        fontSize: moderateScale(32),
+        color: '#ffffff'
     },
 })

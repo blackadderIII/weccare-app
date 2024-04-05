@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, Animated, TouchableWithoutFeedback } fro
 // utils
 import { horizontalScale, moderateScale, verticalScale } from '../utils/metrics';
 
-export default function CardFile({ onPress, careCardNo, date }) {
+export default function CardFile({ theme, onPress, careCardNo, date }) {
 
     const [pressed, setPressed] = useState(false);
     const scaleValue = useRef(new Animated.Value(1)).current;
@@ -29,10 +29,10 @@ export default function CardFile({ onPress, careCardNo, date }) {
 
     return (
         <TouchableWithoutFeedback onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
-            <Animated.View style={[styles.fileContainer, { transform: [{ scale: scaleValue }] }]}>
-                <Image source={require('../assets/icons/file.png')} style={styles.image} />
-                <Text numberOfLines={1} style={styles.ccNo}>{careCardNo}</Text>
-                <Text style={styles.date}>{date}</Text>
+            <Animated.View style={[theme === 'light' ? styles.fileContainer : darkStyles.fileContainer, { transform: [{ scale: scaleValue }] }]}>
+                <Image source={require('../assets/icons/file.png')} style={theme === 'light' ? styles.image : darkStyles.image} />
+                <Text numberOfLines={1} style={theme === 'light' ? styles.ccNo : darkStyles.ccNo}>{careCardNo}</Text>
+                <Text style={theme === 'light' ? styles.date : darkStyles.date}>{date}</Text>
             </Animated.View>
         </TouchableWithoutFeedback>
     )
@@ -55,5 +55,25 @@ const styles = StyleSheet.create({
         fontFamily: 'poppins',
         fontSize: moderateScale(12),
         color: '#555',
+    },
+})
+
+const darkStyles = StyleSheet.create({
+    fileContainer: {
+        width: '33.3%',
+        height: 'auto',
+        objectFit: 'contain',
+        alignItems: 'center',
+        marginBottom: verticalScale(20),
+    },
+    ccNo: {
+        fontFamily: 'poppins-s',
+        color: '#ddd',
+        fontSize: moderateScale(14),
+    },
+    date: {
+        fontFamily: 'poppins',
+        fontSize: moderateScale(12),
+        color: '#999',
     },
 })

@@ -1,8 +1,8 @@
 import { Image, View, Text } from 'react-native'
-import React from 'react'
+import React, { useContext } from 'react'
 
 // styling
-import { about } from '../styles/about'
+import { about, darkAbout } from '../styles/about'
 
 // component
 import HeaderComponent from '../components/headerComponent'
@@ -12,21 +12,27 @@ import carecard from '../assets/logo.png'
 import wec from '../assets/wec-logo.png'
 import ZeroHarm from '../assets/zero-harm.png'
 
+// utils
+import { ThemeContext } from '../utils/theme'
+
 export default function About() {
+
+    const { theme } = useContext(ThemeContext)
+
     return (
-        <View style={about.main}>
+        <View style={theme === 'light' ? about.main : darkAbout.main}>
             <HeaderComponent
                 title={'About'}
             />
 
-            <View style={about.container}>
+            <View style={theme === 'light' ? about.container : darkAbout.container}>
 
-                <View style={about.logos}>
-                    <Image source={carecard} style={about.logoOne} />
+                <View style={theme === 'light' ? about.logos : darkAbout.logos}>
+                    <Image source={carecard} style={theme === 'light' ? about.logoOne : darkAbout.logoOne} />
                 </View>
 
-                <View style={about.textContainer}>
-                    <Text style={about.text}>
+                <View style={theme === 'light' ? about.textContainer : darkAbout.textContainer}>
+                    <Text style={theme === 'light' ? about.text : darkAbout.text}>
                         The Care Card App is a system designed to empower you report potential hazards,
                         unsafe behaviors and conditions through a systematic observation
                         of the work environment and activities.{`\n`}
@@ -38,9 +44,9 @@ export default function About() {
                     </Text>
                 </View>
 
-                <View style={about.logos}>
-                    <Image source={wec} style={about.logoOne} />
-                    <Image source={ZeroHarm} style={about.logoTwo} />
+                <View style={theme === 'light' ? about.logos : darkAbout.logos}>
+                    <Image source={wec} style={theme === 'light' ? about.logoOne : darkAbout.logoOne} />
+                    <Image source={ZeroHarm} style={theme === 'light' ? about.logoTwo : darkAbout.logoTwo} />
                 </View>
 
             </View>

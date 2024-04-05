@@ -1,24 +1,30 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, ScrollView, Text } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
 // styling
-import { terms } from '../styles/terms'
+import { terms, darkTerms } from '../styles/terms'
 
 // components
 import HeaderComponent from '../components/headerComponent'
 
+// utils
+import { ThemeContext } from '../utils/theme'
+
 export default function PrivacyPolicy() {
+
+    const { theme } = useContext(ThemeContext)
+
     return (
-        <View style={terms.main}>
+        <View style={theme === 'light' ? terms.main : darkTerms.main}>
             <HeaderComponent
                 title={'Privacy Policy'}
             />
-            <ScrollView style={terms.container} contentContainerStyle={{ alignItems: 'center' }}>
+            <ScrollView style={theme === 'light' ? terms.container : darkTerms.container} contentContainerStyle={{ alignItems: 'center' }}>
 
-                <View style={terms.section}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
 
-                    <Text style={terms.text}>
+                    <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                         As a company, we take your privacy using all our
                         product seriously. This Privacy Policy is in line
                         with the use of the Care Card app and its outlines
@@ -29,10 +35,10 @@ export default function PrivacyPolicy() {
 
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Information We Collect</Text>
-                    <View style={terms.textSection}>
-                        <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Information We Collect</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
+                        <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                             When you use the Care Card app, we may collect certain
                             personal information from you, such as your name, department, and
                             phone number. We may also collect information about
@@ -41,61 +47,61 @@ export default function PrivacyPolicy() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>How We Use Your Information</Text>
-                    <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>How We Use Your Information</Text>
+                    <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                         We use the personal information we collect from you to provide you
                         with the services of the Care Card app. Specifically,
                         we use your information to:
                     </Text>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             Forward feedback and complaints to the appropriate
                             body within the company to take care of the issue
                         </Text>
                     </View>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             For other purposes that are consistent with the reason for
                             which it was collected, or with your consent
                         </Text>
                     </View>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             Track the progress of the feedback and complaints you submit through the app
                         </Text>
                     </View>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             Notify you of updates on the status of your feedback and complaints
                         </Text>
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Sharing your Information</Text>
-                    <View style={terms.textSection}>
-                        <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Sharing your Information</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
+                        <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                             We do not share your personal information with
                             any third parties except as required by law or
                             with your consent. We may share your information
@@ -107,10 +113,10 @@ export default function PrivacyPolicy() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Data Security</Text>
-                    <View style={terms.textSection}>
-                        <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Data Security</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
+                        <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                             We take appropriate measures to protect the personal information
                             we collect from you against loss, theft, and unauthorized
                             access, disclosure, or modification. We use industry-standard
@@ -120,10 +126,10 @@ export default function PrivacyPolicy() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Data Retention</Text>
-                    <View style={terms.textSection}>
-                        <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Data Retention</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
+                        <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                             We will only retain your personal information
                             for as long as necessary to fulfil the purposes
                             for which it was collected, or as required by law.
@@ -131,25 +137,25 @@ export default function PrivacyPolicy() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Your Rights</Text>
-                    <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Your Rights</Text>
+                    <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                         You have the right to access, correct, or delete your personal
                         information that we have collected from you. If you wish to
                         exercise any of these rights, please contact us at
                     </Text>
-                    <Text style={terms.textlink} >
+                    <Text style={theme === 'light' ? terms.textlink : darkTerms.textlink} >
                         Email: hse@wayoeltd.com
                     </Text>
-                    <Text style={terms.textlink}>
+                    <Text style={theme === 'light' ? terms.textlink : darkTerms.textlink}>
                         Tel: (+233) 50 144 0385
                     </Text>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Changes to these Policies</Text>
-                    <View style={terms.textSection}>
-                        <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Changes to these Policies</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
+                        <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                             We may update this Privacy Policy from time to time.
                             Any changes will be effective immediately upon posting
                             the revised Privacy Policy on the Care Card app.
@@ -160,7 +166,7 @@ export default function PrivacyPolicy() {
                     </View>
                 </View>
 
-                <View style={terms.spacer}></View>
+                <View style={theme === 'light' ? terms.spacer : darkTerms.spacer}></View>
 
             </ScrollView>
         </View>

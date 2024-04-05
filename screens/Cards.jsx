@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FlatList, View, Text } from 'react-native'
 
 // styling
-import { cards } from '../styles/cards'
+import { cards, darkCards } from '../styles/cards'
 
 // components
 import HeaderComponent from '../components/headerComponent'
 import CardFile from '../components/cardFile'
+import { ThemeContext } from '../utils/theme'
 
 export default function Cards() {
+
+    const { theme } = useContext(ThemeContext)
 
     const cardsData = [
         {
@@ -35,13 +38,14 @@ export default function Cards() {
 
     const renderItem = ({ item }) => (
         <CardFile
+            theme={theme}
             careCardNo={item.title ? item.title : item.id}
             date={item.date}
         />
     );
 
     return (
-        <View style={cards.main}>
+        <View style={theme === 'light' ? cards.main : darkCards.main}>
             <HeaderComponent
                 title={'Pending Cards'}
             />
@@ -49,7 +53,7 @@ export default function Cards() {
                 data={cardsData}
                 renderItem={renderItem}
                 keyExtractor={(item, index) => index}
-                style={cards.flatListContainer}
+                style={theme === 'light' ? cards.flatListContainer : darkCards.flatListContainer}
                 numColumns={3}
             />
         </View>

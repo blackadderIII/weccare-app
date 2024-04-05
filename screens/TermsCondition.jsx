@@ -1,30 +1,36 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, ScrollView, Text } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 
 // styling
-import { terms } from '../styles/terms'
+import { terms, darkTerms } from '../styles/terms'
 
 // components
 import HeaderComponent from '../components/headerComponent'
 
+// utils
+import { ThemeContext } from '../utils/theme'
+
 export default function TermsCondition() {
+
+    const { theme } = useContext(ThemeContext)
+
     return (
-        <View style={terms.main}>
+        <View style={theme === 'light' ? terms.main : darkTerms.main}>
             <HeaderComponent
                 title={'Terms & Conditions'}
             />
-            <ScrollView style={terms.container} contentContainerStyle={{ alignItems: 'center' }}>
+            <ScrollView style={theme === 'light' ? terms.container : darkTerms.container} contentContainerStyle={{ alignItems: 'center' }}>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Acceptance of Terms</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Acceptance of Terms</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             Welcome to the Care Card digital system.
                             By using this app, you acknowledge that
                             you have read and understood these terms
@@ -35,15 +41,15 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Use of the Care Card Digital System</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Use of the Care Card Digital System</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             The Care Card app is designed to allow
                             members of the company to provide feedbacks,
                             complaints, and suggestions, as well as
@@ -54,15 +60,15 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Prohibited Conduct</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Prohibited Conduct</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             By using the Care Card app, you agree not to use
                             the system for any unlawful purpose or in any way
                             that could damage the company’s reputation or
@@ -75,15 +81,15 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Privacy</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Privacy</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             The Care Card app collects personal information
                             such as your name, contact details and department
                             in order to submit your feedbacks to the company.
@@ -94,15 +100,15 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Intellectual Property</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Intellectual Property</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             All intellectual property rights in the Care Card app,
                             including but not limited to the design, software, database
                             and content, are owned by the company. You may not use any
@@ -112,43 +118,43 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Limitation of Liability</Text>
-                    <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Limitation of Liability</Text>
+                    <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                         The company guarantees the safe use of the Care Card app
                         from malicious attacks and damages whiles using the app
                         for its intended purpose. Hence, if the system is used out
                         of its scope and purpose,
                     </Text>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             The company won’t be liable for any malicious attacks
                         </Text>
                     </View>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             To the extent permitted by law, the company will not be
                             liable for any direct, indirect, incidental, or consequential
                             damages arising from or in connection with the use of the Care Card app.
                         </Text>
                     </View>
-                    <View style={terms.textSection}>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             You agree to indemnify and hold the organization harmless
                             from any claims, losses, or damages, including legal fees,
                             arising from your use of the app or any breach of these terms
@@ -157,15 +163,15 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Modification of Terms</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Modification of Terms</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             The company may modify these Terms and Conditions at
                             any time, and such modifications will be effective
                             immediately upon updating the on the Care Card app.
@@ -176,30 +182,30 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Governing Law</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Governing Law</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             These Terms and Conditions are governed by and construed
                             in accordance with the Constitution of Ghana.
                         </Text>
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.subHeading}>Entire Agreement</Text>
-                    <View style={terms.textSection}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.subHeading : darkTerms.subHeading}>Entire Agreement</Text>
+                    <View style={theme === 'light' ? terms.textSection : darkTerms.textSection}>
                         <Entypo
                             name="dot-single"
                             size={24}
-                            style={terms.bulletStyle}
+                            style={theme === 'light' ? terms.bulletStyle : darkTerms.bulletStyle}
                         />
-                        <Text style={terms.textStyle}>
+                        <Text style={theme === 'light' ? terms.textStyle : darkTerms.textStyle}>
                             These Terms and Conditions constitute the entire
                             agreement between you and the company with respect
                             to the use of the Care Card app.
@@ -207,20 +213,20 @@ export default function TermsCondition() {
                     </View>
                 </View>
 
-                <View style={terms.section}>
-                    <Text style={terms.text}>
+                <View style={theme === 'light' ? terms.section : darkTerms.section}>
+                    <Text style={theme === 'light' ? terms.text : darkTerms.text}>
                         If you have any questions or concerns about these
                         Terms and Conditions, please contact the HSE Manager;
                     </Text>
-                    <Text style={terms.textlink} >
+                    <Text style={theme === 'light' ? terms.textlink : darkTerms.textlink} >
                         Email: hse@wayoeltd.com
                     </Text>
-                    <Text style={terms.textlink}>
+                    <Text style={theme === 'light' ? terms.textlink : darkTerms.textlink}>
                         Tel: (+233) 50 144 0385
                     </Text>
                 </View>
 
-                <View style={terms.spacer}></View>
+                <View style={theme === 'light' ? terms.spacer : darkTerms.spacer}></View>
 
             </ScrollView>
         </View>

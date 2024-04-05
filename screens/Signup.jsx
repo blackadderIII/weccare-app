@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { ActivityIndicator, View, Text, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native'
 import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
@@ -6,7 +6,7 @@ import { Feather, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 import HeaderComponent from '../components/headerComponent'
 
 // styling
-import { signup } from '../styles/signup'
+import { signup, darkSignup } from '../styles/signup'
 
 // images
 import carecard from '../assets/logo.png'
@@ -14,8 +14,11 @@ import carecard from '../assets/logo.png'
 // utils
 import { color } from '../utils/color'
 import { moderateScale } from '../utils/metrics'
+import { ThemeContext } from '../utils/theme'
 
 export default function SignUp() {
+
+    const { theme } = useContext(ThemeContext)
 
     const [firstname, setFirstname] = useState('')
     const [lastname, setLastname] = useState('')
@@ -30,15 +33,15 @@ export default function SignUp() {
     const [isLoading, setIsLoading] = useState(false)
 
     return (
-        <View style={signup.main}>
+        <View style={theme === 'light' ? signup.main : darkSignup.main}>
             <HeaderComponent
                 title={'Create Account'}
             />
             <ScrollView>
-                <Image source={carecard} style={signup.logo} />
+                <Image source={carecard} style={theme === 'light' ? signup.logo : darkSignup.logo} />
 
-                <Text style={signup.sectionHeader}>First Name</Text>
-                <View style={signup.section}>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>First Name</Text>
+                <View style={theme === 'light' ? signup.section : darkSignup.section}>
                     <TextInput
                         placeholder="Enter your first name"
                         selectionColor={'#0080006b'}
@@ -46,12 +49,13 @@ export default function SignUp() {
                         textContentType="name"
                         value={firstname}
                         onChangeText={setFirstname}
-                        style={signup.textInput}
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
+                        style={theme === 'light' ? signup.textInput : darkSignup.textInput}
                     />
                 </View>
 
-                <Text style={signup.sectionHeader}>Last Name</Text>
-                <View style={signup.section}>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>Last Name</Text>
+                <View style={theme === 'light' ? signup.section : darkSignup.section}>
                     <TextInput
                         placeholder="Enter your last name"
                         selectionColor={'#0080006b'}
@@ -59,12 +63,13 @@ export default function SignUp() {
                         textContentType="name"
                         value={lastname}
                         onChangeText={setLastname}
-                        style={signup.textInput}
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
+                        style={theme === 'light' ? signup.textInput : darkSignup.textInput}
                     />
                 </View>
 
-                <Text style={signup.sectionHeader}>Email</Text>
-                <View style={signup.section}>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>Email</Text>
+                <View style={theme === 'light' ? signup.section : darkSignup.section}>
                     <TextInput
                         placeholder="Enter your email"
                         selectionColor={'#0080006b'}
@@ -72,38 +77,39 @@ export default function SignUp() {
                         textContentType="emailAddress"
                         value={email}
                         onChangeText={setEmail}
-                        style={signup.textInput}
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
+                        style={theme === 'light' ? signup.textInput : darkSignup.textInput}
                     />
                 </View>
 
-                <Text style={signup.sectionHeader}>Department</Text>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>Department</Text>
                 <TouchableOpacity onPress={() => setShowDepartment(!showDepartment)} activeOpacity={.7}>
-                    <View style={signup.dropDownPlaceholders}>
-                        <Text style={{ fontFamily: 'poppins', fontSize: moderateScale(14) }}>{department}</Text>
+                    <View style={theme === 'light' ? signup.dropDownPlaceholders : darkSignup.dropDownPlaceholders}>
+                        <Text style={{ fontFamily: 'poppins', fontSize: moderateScale(14), color: theme === 'light' ? '#0005' : '#fff5' }}>{department}</Text>
                         <Feather
                             name={'chevron-down'}
                             color={'green'}
                             size={18}
-                            style={signup.dropDownIcon}
+                            style={theme === 'light' ? signup.dropDownIcon : darkSignup.dropDownIcon}
                         />
                     </View>
                 </TouchableOpacity>
 
-                <Text style={signup.sectionHeader}>Designation</Text>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>Designation</Text>
                 <TouchableOpacity onPress={() => setShowDesgination(!showDesignation)} activeOpacity={.7}>
-                    <View style={signup.dropDownPlaceholders}>
-                        <Text style={{ fontFamily: 'poppins', fontSize: moderateScale(14) }}>{designation}</Text>
+                    <View style={theme === 'light' ? signup.dropDownPlaceholders : darkSignup.dropDownPlaceholders}>
+                        <Text style={{ fontFamily: 'poppins', fontSize: moderateScale(14), color: theme === 'light' ? '#0005' : '#fff5' }}>{designation}</Text>
                         <Feather
                             name={'chevron-down'}
                             color={'green'}
                             size={18}
-                            style={signup.dropDownIcon}
+                            style={theme === 'light' ? signup.dropDownIcon : darkSignup.dropDownIcon}
                         />
                     </View>
                 </TouchableOpacity>
 
-                <Text style={signup.sectionHeader}>Create Password</Text>
-                <View style={signup.section}>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>Create Password</Text>
+                <View style={theme === 'light' ? signup.section : darkSignup.section}>
                     <TextInput
                         placeholder="Enter a new Password"
                         selectionColor={'#0080006b'}
@@ -111,13 +117,14 @@ export default function SignUp() {
                         textContentType="password"
                         value={password}
                         onChangeText={setPassword}
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                         secureTextEntry={!showPassword}
-                        style={signup.textInput}
+                        style={theme === 'light' ? signup.textInput : darkSignup.textInput}
                     />
                 </View>
 
-                <Text style={signup.sectionHeader}>Confirm Password</Text>
-                <View style={signup.section}>
+                <Text style={theme === 'light' ? signup.sectionHeader : darkSignup.sectionHeader}>Confirm Password</Text>
+                <View style={theme === 'light' ? signup.section : darkSignup.section}>
                     <TextInput
                         placeholder="Confirm your new Password"
                         selectionColor={'#0080006b'}
@@ -125,38 +132,39 @@ export default function SignUp() {
                         textContentType="password"
                         value={confirmPassword}
                         onChangeText={setConfirmPassword}
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                         secureTextEntry={!showPassword}
-                        style={signup.textInput}
+                        style={theme === 'light' ? signup.textInput : darkSignup.textInput}
                     />
                 </View>
 
-                <View style={signup.showPasswordContainer}>
+                <View style={theme === 'light' ? signup.showPasswordContainer : darkSignup.showPasswordContainer}>
                     <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                         {showPassword ?
                             <Ionicons name='checkbox' color={color.main} size={moderateScale(24)} /> :
                             <MaterialCommunityIcons name='checkbox-blank-outline' color={color.jet} size={moderateScale(24)} />
                         }
                     </TouchableOpacity>
-                    <Text style={signup.showPasswordText}>Show Password</Text>
+                    <Text style={theme === 'light' ? signup.showPasswordText : darkSignup.showPasswordText}>Show Password</Text>
                 </View>
 
-                <TouchableOpacity activeOpacity={0.7} style={signup.buttonContainer}>
+                <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? signup.buttonContainer : darkSignup.buttonContainer}>
                     {isLoading ?
-                        <ActivityIndicator color={'white'} size={'small'} style={signup.button} /> :
-                        <Text style={signup.button}>Sign Up</Text>
+                        <ActivityIndicator color={'white'} size={'small'} style={theme === 'light' ? signup.button : darkSignup.button} /> :
+                        <Text style={theme === 'light' ? signup.button : darkSignup.button}>Sign Up</Text>
                     }
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={0.7} style={signup.forgotPassword}>
-                    <Text style={signup.forgotPassword}>Forgot Password?</Text>
+                <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? signup.forgotPassword : darkSignup.forgotPassword}>
+                    <Text style={theme === 'light' ? signup.forgotPassword : darkSignup.forgotPassword}>Forgot Password?</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity activeOpacity={0.7} style={signup.register} onPress={() => navigation.navigate('SignupScreen')}>
-                    <Text style={signup.registerText}>Don't have an account?</Text>
-                    <Text style={signup.registerLink}> Register Now</Text>
+                <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? signup.register : darkSignup.register} onPress={() => navigation.navigate('SignupScreen')}>
+                    <Text style={theme === 'light' ? signup.registerText : darkSignup.registerText}>Don't have an account?</Text>
+                    <Text style={theme === 'light' ? signup.registerLink : darkSignup.registerLink}> Register Now</Text>
                 </TouchableOpacity>
 
-                <View style={signup.spacer}></View>
+                <View style={theme === 'light' ? signup.spacer : darkSignup.spacer}></View>
             </ScrollView>
         </View>
     )

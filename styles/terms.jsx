@@ -55,3 +55,57 @@ export const terms = StyleSheet.create({
         height: verticalScale(30),
     }
 })
+
+export const darkTerms = StyleSheet.create({
+    main: {
+        flex: 1,
+        paddingTop: verticalScale(40),
+        backgroundColor: color.darkBackground,
+    },
+    container: {
+        flex: 1,
+        paddingTop: verticalScale(20),
+        paddingHorizontal: horizontalScale(20),
+    },
+    section: {
+        width: '100%',
+        marginBottom: verticalScale(10),
+    },
+    subHeading: {
+        fontFamily: 'poppins-s',
+        fontSize: moderateScale(18),
+        color: color.main,
+    },
+    textSection: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start',
+        marginBottom: verticalScale(10),
+    },
+    bulletStyle: {
+        width: '7%',
+        marginTop: verticalScale(-5),
+        color: color.whiteText
+    },
+    textStyle: {
+        width: '93%',
+        fontFamily: 'poppins',
+        fontSize: moderateScale(14),
+        color: color.whiteText
+    },
+    text: {
+        fontFamily: 'poppins',
+        fontSize: moderateScale(14),
+        marginBottom: verticalScale(7),
+        color: color.whiteText
+    },
+    textlink: {
+        fontFamily: 'poppins-s',
+        fontSize: moderateScale(14),
+        color: color.main,
+    },
+    spacer: {
+        width: '100%',
+        height: verticalScale(30),
+    }
+})

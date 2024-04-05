@@ -1,17 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, ScrollView, TextInput, TouchableOpacity, Pressable } from 'react-native'
 import { AntDesign, Entypo } from '@expo/vector-icons'
+
 // styling
-import { write } from '../styles/write'
+import { write, darkWrite } from '../styles/write'
 
 // component
 import HeaderComponent from '../components/headerComponent'
 
 // utils
 import { color } from '../utils/color'
+import { ThemeContext } from '../utils/theme'
 import { moderateScale } from '../utils/metrics'
 
 export default function WriteCard() {
+
+    const { theme } = useContext(ThemeContext)
 
     const username = 'Paul Arthur'
     const department = 'IT'
@@ -33,16 +37,17 @@ export default function WriteCard() {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     return (
-        <View style={write.main}>
+        <View style={theme === 'light' ? write.main : darkWrite.main}>
             <HeaderComponent
+                theme={theme}
                 title={'Care Card'}
             />
-            <ScrollView style={write.container} contentContainerStyle={{ alignItems: 'center' }}>
+            <ScrollView style={theme === 'light' ? write.container : darkWrite.container} contentContainerStyle={{ alignItems: 'center' }}>
 
-                <View style={write.section}>
-                    <Text style={write.titleText}>Title</Text>
-                    <View style={write.textInputContainer}>
-                        <Text style={write.miniDescription}>
+                <View style={theme === 'light' ? write.section : darkWrite.section}>
+                    <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>Title</Text>
+                    <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
+                        <Text style={theme === 'light' ? write.miniDescription : darkWrite.miniDescription}>
                             This is an optional feature that allows you to name your carecard making recognition quick and easy.{`\n`}
                         </Text>
                         <TextInput
@@ -50,60 +55,64 @@ export default function WriteCard() {
                             onChangeText={setTitle}
                             editable={true}
                             placeholder='eg. Care Card 1'
-                            style={write.textInput}
+                            style={theme === 'light' ? write.textInput : darkWrite.textInput}
                             selectionColor={"#0080006b"}
                             cursorColor={color.main}
+                            placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                         />
                     </View>
                 </View>
 
                 {/* Part A */}
-                <View style={write.section}>
-                    <Text style={write.titleText}>Part A - General</Text>
-                    <View style={write.textInputContainer}>
-                        <Text style={write.textInputTitle}>Name of Observer</Text>
+                <View style={theme === 'light' ? write.section : darkWrite.section}>
+                    <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>Part A - General</Text>
+                    <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
+                        <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>Name of Observer</Text>
                         <TextInput
                             value={username}
                             editable={false}
-                            style={write.textInput}
+                            style={theme === 'light' ? write.textInput : darkWrite.textInput}
                             selectionColor={"#0080006b"}
                             cursorColor={color.main}
+                            placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                         />
                     </View>
-                    <View style={write.textInputContainer}>
-                        <Text style={write.textInputTitle}>Department</Text>
+                    <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
+                        <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>Department</Text>
                         <TextInput
                             value={department}
                             editable={false}
-                            style={write.textInput}
+                            style={theme === 'light' ? write.textInput : darkWrite.textInput}
                             selectionColor={"#0080006b"}
                             cursorColor={color.main}
+                            placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                         />
                     </View>
-                    <View style={write.textInputContainer}>
-                        <Text style={write.textInputTitle}>*Location</Text>
+                    <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
+                        <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>*Location</Text>
 
-                        <View style={write.locationHolder}>
-                            <TouchableOpacity activeOpacity={.7} onPress={() => setShowCountries(!showCountries)} style={[write.textInput, { width: '47%', padding: moderateScale(14), }]}>
-                                <Text style={{ fontFamily: 'poppins' }}>{country}</Text>
+                        <View style={theme === 'light' ? write.locationHolder : darkWrite.locationHolder}>
+                            <TouchableOpacity activeOpacity={.7} onPress={() => setShowCountries(!showCountries)} style={[theme === 'light' ? write.textInput : darkWrite.textInput, { width: '47%', padding: moderateScale(14), }]}>
+                                <Text style={{ fontFamily: 'poppins', color: theme === 'light' ? '#222' : '#fff' }}>{country}</Text>
                             </TouchableOpacity>
 
                             <TextInput
                                 value={location}
-                                style={[write.textInput, { width: '47%', padding: moderateScale(12) }]}
+                                style={[theme === 'light' ? write.textInput : darkWrite.textInput, { width: '47%', padding: moderateScale(12) }]}
                                 selectionColor={"#0080006b"}
                                 cursorColor={color.main}
                                 placeholder='Your location'
                                 onChangeText={setLocation}
+                                placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                             />
                         </View>
                     </View>
                 </View>
 
                 {/* part B */}
-                <View style={write.section}>
-                    <Text style={write.titleText}>*Part B - Type of Observation</Text>
-                    <Pressable style={write.radioBtn} onPress={() => setTypeOfObservation("Positive")}>
+                <View style={theme === 'light' ? write.section : darkWrite.section}>
+                    <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part B - Type of Observation</Text>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Positive")}>
                         {typeOfObservation === "Positive" ? (
                             <AntDesign
                                 name='checkcircle'
@@ -117,9 +126,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Positive</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Positive</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setTypeOfObservation("Substandard Hazard")}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Substandard Hazard")}>
                         {typeOfObservation === "Substandard Hazard" ? (
                             <AntDesign
                                 name='checkcircle'
@@ -133,9 +142,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Substandard Hazard</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Substandard Hazard</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setTypeOfObservation("Improvement")}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Improvement")}>
                         {typeOfObservation === "Improvement" ? (
                             <AntDesign
                                 name='checkcircle'
@@ -149,14 +158,14 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Improvement</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Improvement</Text>
                     </Pressable>
                 </View>
 
                 {/* Part C */}
-                <View style={write.section}>
-                    <Text style={write.titleText}>*Part C - Observation</Text>
-                    <Pressable style={write.radioBtn} onPress={() => setPeopleActs(!peopleActs)}>
+                <View style={theme === 'light' ? write.section : darkWrite.section}>
+                    <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part C - Observation</Text>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setPeopleActs(!peopleActs)}>
                         {peopleActs ? (
                             <AntDesign
                                 name='checkcircle'
@@ -170,9 +179,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>People | Acts</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>People | Acts</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setCondition(!condition)}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setCondition(!condition)}>
                         {condition ? (
                             <AntDesign
                                 name='checkcircle'
@@ -186,9 +195,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Condition</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Condition</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setEnvironmental(!environmental)}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setEnvironmental(!environmental)}>
                         {environmental ? (
                             <AntDesign
                                 name='checkcircle'
@@ -202,9 +211,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Environmental</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Environmental</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setAssetEquipment(!assetEquipment)}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setAssetEquipment(!assetEquipment)}>
                         {assetEquipment ? (
                             <AntDesign
                                 name='checkcircle'
@@ -218,9 +227,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Asset | Equipment</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Asset | Equipment</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setProcedureSystem(!procedureSystem)}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setProcedureSystem(!procedureSystem)}>
                         {procedureSystem ? (
                             <AntDesign
                                 name='checkcircle'
@@ -234,9 +243,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Procedure | System</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Procedure | System</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setQuality(!quality)}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setQuality(!quality)}>
                         {quality ? (
                             <AntDesign
                                 name='checkcircle'
@@ -250,9 +259,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Quality</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Quality</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setSecurity(!security)}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setSecurity(!security)}>
                         {security ? (
                             <AntDesign
                                 name='checkcircle'
@@ -266,13 +275,13 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Security</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Security</Text>
                     </Pressable>
                 </View>
 
                 {/* part D */}
-                <View style={write.section}>
-                    <Text style={write.titleText}>*Part D - Description of Observation</Text>
+                <View style={theme === 'light' ? write.section : darkWrite.section}>
+                    <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part D - Description of Observation</Text>
                     <TextInput
                         value={description}
                         onChangeText={setDescription}
@@ -281,16 +290,17 @@ export default function WriteCard() {
                         textAlignVertical='top'
                         selectionColor={'#0080006b'}
                         cursorColor={color.main}
-                        style={write.textInputMultiline}
+                        style={theme === 'light' ? write.textInputMultiline : darkWrite.textInputMultiline}
                         placeholder='Describe your observation'
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                     />
                 </View>
 
                 {/* part E */}
-                <View style={write.section}>
-                    <Text style={write.titleText}>Part E - Actions & Suggestions</Text>
-                    <Text style={write.descriptiveText}>Were you able to correct the problem?</Text>
-                    <Pressable style={write.radioBtn} onPress={() => setActions("Yes")}>
+                <View style={theme === 'light' ? write.section : darkWrite.section}>
+                    <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>Part E - Actions & Suggestions</Text>
+                    <Text style={theme === 'light' ? write.descriptiveText : darkWrite.descriptiveText}>Were you able to correct the problem?</Text>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setActions("Yes")}>
                         {actions === "Yes" ? (
                             <AntDesign
                                 name='checkcircle'
@@ -304,9 +314,9 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>Yes</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Yes</Text>
                     </Pressable>
-                    <Pressable style={write.radioBtn} onPress={() => setActions("No")}>
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setActions("No")}>
                         {actions === "No" ? (
                             <AntDesign
                                 name='checkcircle'
@@ -320,10 +330,10 @@ export default function WriteCard() {
                                 color={color.main}
                             />
                         )}
-                        <Text style={write.radioText}>No</Text>
+                        <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>No</Text>
                     </Pressable>
 
-                    <Text style={write.descriptiveText}>
+                    <Text style={theme === 'light' ? write.descriptiveText : darkWrite.descriptiveText}>
                         Describe the corrective action taken, or your suggestion to prevent reoccurance.
                     </Text>
                     <TextInput
@@ -335,15 +345,16 @@ export default function WriteCard() {
                         cursorColor={color.main}
                         textAlignVertical='top'
                         placeholder='Your corrective action or suggestion'
-                        style={write.textInputMultiline}
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
+                        style={theme === 'light' ? write.textInputMultiline : darkWrite.textInputMultiline}
                     />
                 </View>
 
                 {/* Submit Button */}
-                <TouchableOpacity style={write.submitButton} activeOpacity={0.8} onPress={() => submit()}>
+                <TouchableOpacity style={theme === 'light' ? write.submitButton : darkWrite.submitButton} activeOpacity={0.8} onPress={() => submit()}>
                     {isSubmitting ?
                         <ActivityIndicator color={'white'} /> :
-                        <Text style={write.submitButtonText}>Submit</Text>
+                        <Text style={theme === 'light' ? write.submitButtonText : darkWrite.submitButtonText}>Submit</Text>
                     }
                 </TouchableOpacity>
 

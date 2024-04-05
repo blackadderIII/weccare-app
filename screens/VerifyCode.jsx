@@ -1,15 +1,18 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { Image, View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import HeaderComponent from '../components/headerComponent'
 
-import { verify } from '../styles/verify'
+import { verify, darkVerify } from '../styles/verify'
 
 import otp from '../assets/icons/otp.png'
 
 import { color } from '../utils/color'
+import { ThemeContext } from '../utils/theme'
 
 export default function VerifyCode() {
+
+    const { theme } = useContext(ThemeContext)
 
     const [verificationCode, setVerificationCode] = useState([]);
     const [focusedInput, setFocusedInput] = useState();
@@ -40,23 +43,23 @@ export default function VerifyCode() {
 
 
     return (
-        <View style={verify.main}>
+        <View style={theme === 'light' ? verify.main : darkVerify.main}>
             <HeaderComponent
                 title={'Verify Email'}
             />
 
             <ScrollView>
-                <Image source={otp} style={verify.illustration} />
+                <Image source={otp} style={theme === 'light' ? verify.illustration : darkVerify.illustration} />
 
-                <Text style={verify.description}>
+                <Text style={theme === 'light' ? verify.description : darkVerify.description}>
                     Check your email for the verification code we've sent and enter it below
                 </Text>
 
-                <View style={verify.section}>
+                <View style={theme === 'light' ? verify.section : darkVerify.section}>
                     {inputs.map((item, index) => (
                         <TextInput
                             key={index}
-                            style={[verify.textInputBlur, focusedInput === index && verify.textInput]}
+                            style={[theme === 'light' ? verify.textInputBlur : darkVerify.textInputBlur, focusedInput === index && theme === 'light' ? verify.textInput : darkVerify.textInput]}
                             onFocus={() => handleFocus(index)}
                             onBlur={handleBlur}
                             keyboardType="numeric"
@@ -70,11 +73,11 @@ export default function VerifyCode() {
                     ))}
                 </View>
 
-                <TouchableOpacity activeOpacity={0.7} style={verify.buttonContainer}>
-                    {isLoading ? <ActivityIndicator color={'white'} size={'small'} style={verify.button} /> : <Text style={verify.button}>Send</Text>}
+                <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? verify.buttonContainer : darkVerify.buttonContainer}>
+                    {isLoading ? <ActivityIndicator color={'white'} size={'small'} style={theme === 'light' ? verify.button : darkVerify.button} /> : <Text style={theme === 'light' ? verify.button : darkVerify.button}>Send</Text>}
                 </TouchableOpacity>
 
-                <Text style={verify.descriptionSmall}>
+                <Text style={theme === 'light' ? verify.descriptionSmall : darkVerify.descriptionSmall}>
                     Didn't recieve a code?{`\n`}
                     Confirm that your email is correct and try again.
                 </Text>

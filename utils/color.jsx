@@ -5,5 +5,8 @@ export const color = ({
     jet: '#333333',
     silver: '#dddddd',
     background: '#EBEBEB',
-    red: '#9B0C28'
+    darkBackground: '#16181d',
+    darkComponent: '#282c34',
+    red: '#9B0C28',
+    whiteText: '#dddddd'
 })

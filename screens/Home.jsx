@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
 
 // styling
-import { home } from '../styles/home'
+import { home, darkHome } from '../styles/home'
 
 // components
 import Banner from '../components/banner'
@@ -12,6 +12,7 @@ import RecentCard from '../components/recentCard'
 
 // utils
 import { color } from '../utils/color'
+import { ThemeContext } from '../utils/theme'
 import { horizontalScale } from '../utils/metrics'
 
 // images
@@ -21,25 +22,29 @@ import completedBG from '../assets/banner/completed.png'
 import uncompletedBG from '../assets/banner/uncompleted.png'
 
 export default function Home() {
+
+    const { theme, toggleTheme } = useContext(ThemeContext)
+
     return (
         <>
-            <View style={home.main}>
-                <View style={home.header}>
-                    <Text style={home.headerText}>Hi, Paul</Text>
-                    <TouchableOpacity style={home.headerImgContainer} activeOpacity={.7}>
-                        <Image source={pp} style={home.headerImg} />
+            <View style={theme === 'light' ? home.main : darkHome.main}>
+                <View style={theme === 'light' ? home.header : darkHome.header}>
+                    <Text style={theme === 'light' ? home.headerText : darkHome.headerText}>Hi, Paul</Text>
+                    <TouchableOpacity style={theme === 'light' ? home.headerImgContainer : darkHome.headerImgContainer} activeOpacity={.7} onPress={() => toggleTheme()}>
+                        <Image source={pp} style={theme === 'light' ? home.headerImg : darkHome.headerImg} />
                     </TouchableOpacity>
                 </View>
 
                 <ScrollView refreshControl={''}>
                     <Banner />
 
-                    <Text style={home.titleText}>Care Card Summary</Text>
+                    <Text style={theme === 'light' ? home.titleText : darkHome.titleText}>Care Card Summary</Text>
 
-                    <View style={home.summaryContainer}>
+                    <View style={theme === 'light' ? home.summaryContainer : darkHome.summaryContainer}>
                         <ScrollView horizontal={true} alwaysBounceHorizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ alignItems: 'center' }}>
                             <View style={{ width: horizontalScale(10) }}></View>
                             <CarecardOverview
+                                theme={theme}
                                 imgSource={pendingBG}
                                 color={'#ff841f'}
                                 iconName={'clock'}
@@ -47,6 +52,7 @@ export default function Home() {
                                 tabName={'Pending Cards'}
                             />
                             <CarecardOverview
+                                theme={theme}
                                 imgSource={completedBG}
                                 color={'#00c993'}
                                 iconName={'check-circle'}
@@ -54,6 +60,7 @@ export default function Home() {
                                 tabName={'Completed Cards'}
                             />
                             <CarecardOverview
+                                theme={theme}
                                 imgSource={uncompletedBG}
                                 color={color.red}
                                 iconName={'x-circle'}
@@ -64,21 +71,24 @@ export default function Home() {
                         </ScrollView>
                     </View>
 
-                    <Text style={home.titleText}>Recent Cards</Text>
+                    <Text style={theme === 'light' ? home.titleText : darkHome.titleText}>Recent Cards</Text>
 
-                    <View style={home.recentCardContainer}>
+                    <View style={theme === 'light' ? home.recentCardContainer : darkHome.recentCardContainer}>
                         <ScrollView>
                             <RecentCard
+                                theme={theme}
                                 cc={'CC-9786542'}
                                 date={'March 19, 2024'}
                                 status={'Pending'}
                             />
                             <RecentCard
+                                theme={theme}
                                 cc={'CC-9786542'}
                                 date={'March 19, 2024'}
                                 status={'Pending'}
                             />
                             <RecentCard
+                                theme={theme}
                                 cc={'CC-9786542'}
                                 date={'March 19, 2024'}
                                 status={'Pending'}
@@ -88,8 +98,8 @@ export default function Home() {
                 </ScrollView>
             </View>
             <TouchableOpacity activeOpacity={.7}>
-                <View style={home.writeButton}>
-                    <MaterialCommunityIcons name='file-plus-outline' style={home.writeIcon} />
+                <View style={theme === 'light' ? home.writeButton : darkHome.writeButton}>
+                    <MaterialCommunityIcons name='file-plus-outline' style={theme === 'light' ? home.writeIcon : darkHome.writeIcon} />
                 </View>
             </TouchableOpacity>
         </>
