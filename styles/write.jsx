@@ -30,9 +30,7 @@ export const write = StyleSheet.create({
     },
     container: {
         flex: 1,
-        // paddingTop: verticalScale(20),
         paddingHorizontal: horizontalScale(20),
-        // backgroundColor: 'pink',
     },
     section: {
         width: '100%',
@@ -65,6 +63,7 @@ export const write = StyleSheet.create({
     },
     textInputMultiline: {
         width: "100%",
+        fontFamily: 'poppins',
         padding: moderateScale(10),
         backgroundColor: '#0001',
         minHeight: verticalScale(100),
@@ -104,5 +103,28 @@ export const write = StyleSheet.create({
     submitButtonText: {
         color: "#fff",
         fontFamily: 'poppins-s'
+    },
+    cardInfo: {
+        borderTopColor: '#ccc',
+        borderTopWidth: verticalScale(1),
+        width: "100%",
+        marginTop: verticalScale(10),
+        paddingTop: verticalScale(20),
+        marginBottom: verticalScale(20),
+    },
+    infoCont: {
+        flexDirection: 'row',
+        width: '100%',
+        alignItems: 'center',
+    },
+    infoContTitle: {
+        fontFamily: 'poppins-b',
+        color: color.main,
+        fontSize: moderateScale(14)
+    },
+    infoContText: {
+        fontSize: moderateScale(14),
+        color: '#777',
+        fontFamily: 'poppins'
     },
 })

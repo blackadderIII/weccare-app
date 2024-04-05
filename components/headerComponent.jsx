@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
         height: moderateScale(30),
     },
     headerIcon: {
-        fontSize: moderateScale(18),
-        color: color.jet
+        fontSize: moderateScale(20),
+        color: color.jet,
     },
     headerText: {
         fontFamily: 'poppins-s',

@@ -3,8 +3,21 @@ import { useFonts } from 'expo-font'
 import * as Splashscreen from 'expo-splash-screen'
 
 // screens
+import About from './screens/About';
+import Cards from './screens/Cards';
+import ChangePassword from './screens/ChangePassword';
+import EditProfile from './screens/EditProfile';
+import Forgot from './screens/Forgot';
 import Home from './screens/Home';
 import Loading from './screens/Loading'
+import PrivacyPolicy from './screens/PrivacyPolicy';
+import ResetPassword from './screens/ResetPassword';
+import Settings from './screens/Settings';
+import SignIn from './screens/SignIn';
+import SignUp from './screens/Signup';
+import TermsCondition from './screens/TermsCondition';
+import VerifyCode from './screens/VerifyCode';
+import ViewCard from './screens/ViewCard';
 import WriteCard from './screens/WriteCard';
 
 // utils
@@ -31,7 +44,20 @@ export default function App() {
   return (
     <>
       <StatusBar style='dark' backgroundColor={color.background} />
-      <WriteCard />
+      {/* <ResetPassword /> */}
+      {/* <VerifyCode /> */}
+      {/* <Forgot /> */}
+      {/* <SignUp /> */}
+      {/* <SignIn /> */}
+      {/* <Cards /> */}
+      {/* <ViewCard /> */}
+      {/* <EditProfile /> */}
+      <ChangePassword />
+      {/* <About /> */}
+      {/* <PrivacyPolicy /> */}
+      {/* <TermsCondition /> */}
+      {/* <Settings /> */}
+      {/* <WriteCard /> */}
       {/* <Home /> */}
     </>
   );
