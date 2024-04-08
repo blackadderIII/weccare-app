@@ -8,5 +8,6 @@ export const color = ({
     darkBackground: '#16181d',
     darkComponent: '#282c34',
     red: '#9B0C28',
-    whiteText: '#dddddd'
+    whiteText: '#dddddd',
+    warn: '#fe9100'
 })

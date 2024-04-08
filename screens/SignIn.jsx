@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { ActivityIndicator, View, Text, Image, ScrollView, TextInput, TouchableOpacity } from 'react-native'
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 // styling
 import { signin, darkSignin } from '../styles/signin'
@@ -15,7 +16,9 @@ import { ThemeContext } from '../utils/theme'
 
 export default function SignIn() {
 
-    const { theme } = useContext(ThemeContext)
+    const { theme, toggleTheme } = useContext(ThemeContext)
+
+    const navigation = useNavigation()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -67,18 +70,18 @@ export default function SignIn() {
                 <Text style={theme === 'light' ? signin.showPasswordText : darkSignin.showPasswordText}>Show Password</Text>
             </View>
 
-            <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? signin.buttonContainer : darkSignin.buttonContainer}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => toggleTheme()} style={theme === 'light' ? signin.buttonContainer : darkSignin.buttonContainer}>
                 {isLoading ?
                     <ActivityIndicator color={'white'} size={'small'} style={theme === 'light' ? signin.button : darkSignin.button} /> :
                     <Text style={theme === 'light' ? signin.button : darkSignin.button}>Login</Text>
                 }
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? signin.forgotPassword : darkSignin.forgotPassword}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('forgotPassword')} style={theme === 'light' ? signin.forgotPassword : darkSignin.forgotPassword}>
                 <Text style={theme === 'light' ? signin.forgotPassword : darkSignin.forgotPassword}>Forgot Password?</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? signin.register : darkSignin.register} onPress={() => navigation.navigate('SignupScreen')}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('signup')} style={theme === 'light' ? signin.register : darkSignin.register}>
                 <Text style={theme === 'light' ? signin.registerText : darkSignin.registerText}>Don't have an account?</Text>
                 <Text style={theme === 'light' ? signin.registerLink : darkSignin.registerLink}> Register Now</Text>
             </TouchableOpacity>

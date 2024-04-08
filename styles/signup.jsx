@@ -193,6 +193,7 @@ export const darkSignup = StyleSheet.create({
         borderRadius: moderateScale(12),
         fontFamily: 'poppins-m',
         fontSize: moderateScale(14),
+        marginBottom: verticalScale(20),
     },
     forgotPassword: {
         fontFamily: 'poppins-s',
@@ -221,7 +222,7 @@ export const darkSignup = StyleSheet.create({
     spacer: {
         width: '100%',
         height: verticalScale(30),
-        marginBottom: verticalScale(30)
+        marginBottom: verticalScale(0)
     }
 
 })

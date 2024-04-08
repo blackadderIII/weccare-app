@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { ActivityIndicator, Image, View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
 
 // components
 import HeaderComponent from '../components/headerComponent'
@@ -17,12 +18,15 @@ export default function Forgot() {
 
     const { theme } = useContext(ThemeContext)
 
+    const navigation = useNavigation()
+
     const [email, setEmail] = useState('')
     const [isLoading, setIsLoading] = useState(false)
 
     return (
         <View style={theme === 'light' ? forgot.main : darkForgot.main}>
             <HeaderComponent
+                onPress={() => navigation.navigate('signin')}
                 title={'Forgot Password'}
             />
 
