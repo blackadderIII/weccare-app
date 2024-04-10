@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { View, ScrollView, Text } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
+import { useNavigation } from '@react-navigation/native'
 
 // styling
 import { terms, darkTerms } from '../styles/terms'
@@ -15,9 +16,13 @@ export default function TermsCondition() {
 
     const { theme } = useContext(ThemeContext)
 
+    const navigation = useNavigation()
+
     return (
         <View style={theme === 'light' ? terms.main : darkTerms.main}>
             <HeaderComponent
+                onPress={() => navigation.goBack()}
+                theme={theme}
                 title={'Terms & Conditions'}
             />
             <ScrollView style={theme === 'light' ? terms.container : darkTerms.container} contentContainerStyle={{ alignItems: 'center' }}>

@@ -76,6 +76,15 @@ export const home = StyleSheet.create({
         fontSize: moderateScale(14),
         color: '#fff'
     },
+    emptyText: {
+        height: '75%',
+        fontFamily: 'poppins',
+        fontSize: moderateScale(14),
+        color: color.jet,
+        opacity: .5,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    }
 })
 
 export const darkHome = StyleSheet.create({
@@ -150,4 +159,13 @@ export const darkHome = StyleSheet.create({
         fontSize: moderateScale(14),
         color: color.whiteText
     },
+    emptyText: {
+        height: '75%',
+        fontFamily: 'poppins',
+        fontSize: moderateScale(14),
+        color: color.whiteText,
+        opacity: .5,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    }
 })

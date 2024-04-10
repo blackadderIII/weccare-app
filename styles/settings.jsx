@@ -24,18 +24,25 @@ export const settings = StyleSheet.create({
         padding: moderateScale(20),
         borderRadius: moderateScale(20),
     },
+    imageLoader: {
+        position: 'absolute',
+        zIndex: 3,
+    },
     profilePicture: {
-        width: 100,
-        height: 100,
+        width: moderateScale(100),
+        height: moderateScale(100),
         borderRadius: moderateScale(30),
     },
     profileInfo: {
+        height: 'auto',
         marginLeft: horizontalScale(15),
     },
     profileName: {
+        width: horizontalScale(185),
         fontFamily: 'poppins-s',
         fontSize: moderateScale(24),
-        marginBottom: verticalScale(-5)
+        marginBottom: verticalScale(-5),
+        color: color.jet
     },
     profileEmail: {
         fontFamily: 'poppins-s',
@@ -104,14 +111,16 @@ export const darkSettings = StyleSheet.create({
         borderRadius: moderateScale(20),
     },
     profilePicture: {
-        width: 100,
-        height: 100,
+        width: moderateScale(100),
+        height: moderateScale(100),
         borderRadius: moderateScale(30),
     },
     profileInfo: {
+        height: 'auto',
         marginLeft: horizontalScale(15),
     },
     profileName: {
+        width: horizontalScale(185),
         fontFamily: 'poppins-s',
         fontSize: moderateScale(24),
         marginBottom: verticalScale(-5),

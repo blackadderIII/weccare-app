@@ -15,6 +15,7 @@ import { signup, darkSignup } from '../styles/signup'
 import carecard from '../assets/logo.png'
 
 // utils
+import { api } from '../utils/api'
 import { color } from '../utils/color'
 import { moderateScale } from '../utils/metrics'
 import { ThemeContext } from '../utils/theme'
@@ -65,7 +66,7 @@ export default function SignUp() {
         setIsLoading(true)
 
         try {
-            const create = await fetch('http://192.168.10.243:3000/createUser', {
+            const create = await fetch(`${api}:3000/createUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -157,6 +158,7 @@ export default function SignUp() {
                             selectionColor={'#0080006b'}
                             cursorColor={color.main}
                             textContentType="emailAddress"
+                            keyboardType='email-address'
                             value={email}
                             onChangeText={setEmail}
                             placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}

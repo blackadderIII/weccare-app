@@ -10,6 +10,9 @@ export default function Designation({ theme, isVisible, toggleVisibility, onSele
         'Manager',
         'Head of Department',
         'Supervisor',
+        'Graduate Trainee',
+        'National Service Personel',
+        'Visitor',
         'Other'
     ]
 

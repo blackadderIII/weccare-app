@@ -6,9 +6,9 @@ import { Feather } from '@expo/vector-icons';
 import { color } from '../utils/color'
 import { horizontalScale, moderateScale, verticalScale } from '../utils/metrics'
 
-export default function CarecardOverview({ theme, onClick, imgSource, color, iconName, amount, tabName }) {
+export default function CarecardOverview({ theme, onPress, imgSource, color, iconName, amount, tabName }) {
     return (
-        <TouchableOpacity activeOpacity={.7} onPress={onClick}>
+        <TouchableOpacity activeOpacity={.7} onPress={onPress}>
             <ImageBackground source={imgSource} style={theme === 'light' ? styles.tabContainer : darkStyles.tabContainer} imageStyle={{ borderRadius: moderateScale(20) }}>
                 <View style={theme === 'light' ? styles.iconContainer : darkStyles.iconContainer}>
                     <Feather name={iconName} color={color} style={theme === 'light' ? styles.icon : darkStyles.icon} />
@@ -71,13 +71,13 @@ const darkStyles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: 'poppins-s',
         fontSize: moderateScale(50),
-        color: '#ffffff'
+        color: color.whiteText
     },
     tabNames: {
         width: '100%',
         textAlign: 'center',
         fontFamily: 'poppins',
         fontSize: moderateScale(14),
-        color: '#ffffff',
+        color: color.whiteText
     },
 })

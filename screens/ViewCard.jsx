@@ -1,13 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import { View, Text, ScrollView, TextInput, TouchableOpacity, Pressable } from 'react-native'
 import { AntDesign, Entypo } from '@expo/vector-icons'
-// styling
+import { useNavigation, useRoute } from '@react-navigation/native'
+
 import { write, darkWrite } from '../styles/write'
 
-// component
 import HeaderComponent from '../components/headerComponent'
 
-// utils
 import { color } from '../utils/color'
 import { ThemeContext } from '../utils/theme'
 import { moderateScale } from '../utils/metrics'
@@ -16,32 +15,26 @@ export default function ViewCard() {
 
     const { theme } = useContext(ThemeContext)
 
-    const username = 'Paul Arthur'
-    const department = 'IT'
-    const date = 'March 04, 2024'
-    const status = 'Pending'
+    const navigation = useNavigation()
+    const route = useRoute()
 
-    const [title, setTitle] = useState('CC-0789361')
-    const [country, setCountry] = useState('Ghana')
-    const [location, setLocation] = useState('Agona, Takoradi')
-    const [showCountries, setShowCountries] = useState(false)
-    const [typeOfObservation, setTypeOfObservation] = useState('Positive')
-    const [peopleActs, setPeopleActs] = useState(true)
-    const [condition, setCondition] = useState(false)
-    const [environmental, setEnvironmental] = useState(true)
-    const [assetEquipment, setAssetEquipment] = useState(true)
-    const [procedureSystem, setProcedureSystem] = useState(false)
-    const [quality, setQuality] = useState(false)
-    const [security, setSecurity] = useState(true)
-    const [description, setDescription] = useState("A lot of description to write down but let's keep it simple for now.")
-    const [actions, setActions] = useState('')
-    const [correctiveAction, setCorrectiveAction] = useState('Suggestions, lots and lots of suggestions. Question is, will they ever amount to anything? Or are they just going to remain suggestions for the rest of eternity?')
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const { info } = route.params
+
+    const formatDate = (dateString) => {
+        const newDate = new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        })
+        return newDate
+    };
 
     return (
         <View style={theme === 'light' ? write.main : darkWrite.main}>
             <HeaderComponent
-                title={title}
+                theme={theme}
+                onPress={() => navigation.goBack()}
+                title={info.cardID}
             />
             <ScrollView style={theme === 'light' ? write.container : darkWrite.container} contentContainerStyle={{ alignItems: 'center' }}>
 
@@ -51,7 +44,7 @@ export default function ViewCard() {
                     <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
                         <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>Name of Observer</Text>
                         <TextInput
-                            value={username}
+                            value={info.observerName}
                             editable={false}
                             style={theme === 'light' ? write.textInput : darkWrite.textInput}
                             selectionColor={"#0080006b"}
@@ -61,7 +54,7 @@ export default function ViewCard() {
                     <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
                         <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>Department</Text>
                         <TextInput
-                            value={department}
+                            value={info.observerDepartment}
                             editable={false}
                             style={theme === 'light' ? write.textInput : darkWrite.textInput}
                             selectionColor={"#0080006b"}
@@ -72,18 +65,17 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>*Location</Text>
 
                         <View style={theme === 'light' ? write.locationHolder : darkWrite.locationHolder}>
-                            <TouchableOpacity activeOpacity={.7} onPress={() => setShowCountries(!showCountries)} style={[theme === 'light' ? write.textInput : darkWrite.textInput, { width: '47%', padding: moderateScale(14), }]}>
-                                <Text style={{ fontFamily: 'poppins', color: theme === 'light' ? '#222' : '#ddd' }}>{country}</Text>
+                            <TouchableOpacity activeOpacity={.7} style={[theme === 'light' ? write.textInput : darkWrite.textInput, { width: '47%', padding: moderateScale(14), }]}>
+                                <Text style={{ fontFamily: 'poppins', color: theme === 'light' ? '#222' : '#ddd' }}>{info.observerCountry}</Text>
                             </TouchableOpacity>
 
                             <TextInput
-                                value={location}
+                                value={info.observerLocation}
                                 style={[theme === 'light' ? write.textInput : darkWrite.textInput, { width: '47%', padding: moderateScale(12) }]}
                                 selectionColor={"#0080006b"}
                                 cursorColor={color.main}
                                 editable={false}
                                 placeholder='Your location'
-                                onChangeText={setLocation}
                             />
                         </View>
                     </View>
@@ -92,8 +84,8 @@ export default function ViewCard() {
                 {/* part B */}
                 <View style={theme === 'light' ? write.section : darkWrite.section}>
                     <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part B - Type of Observation</Text>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Positive")}>
-                        {typeOfObservation === "Positive" ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.observationType === "Positive" ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -108,8 +100,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Positive</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Substandard Hazard")}>
-                        {typeOfObservation === "Substandard Hazard" ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.observationType === "Substandard Hazard" ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -124,8 +116,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Substandard Hazard</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Improvement")}>
-                        {typeOfObservation === "Improvement" ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.observationType === "Improvement" ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -145,8 +137,8 @@ export default function ViewCard() {
                 {/* Part C */}
                 <View style={theme === 'light' ? write.section : darkWrite.section}>
                     <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part C - Observation</Text>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setPeopleActs(!peopleActs)}>
-                        {peopleActs ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} >
+                        {info.peopleActs === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -161,8 +153,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>People | Acts</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setCondition(!condition)}>
-                        {condition ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.condition === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -177,8 +169,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Condition</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setEnvironmental(!environmental)}>
-                        {environmental ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.environmental === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -193,8 +185,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Environmental</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setAssetEquipment(!assetEquipment)}>
-                        {assetEquipment ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.assetsEquipment === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -209,8 +201,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Asset | Equipment</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setProcedureSystem(!procedureSystem)}>
-                        {procedureSystem ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.procedureSystem === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -225,8 +217,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Procedure | System</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setQuality(!quality)}>
-                        {quality ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.quality === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -241,8 +233,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Quality</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setSecurity(!security)}>
-                        {security ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.security === 'true' ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -263,8 +255,7 @@ export default function ViewCard() {
                 <View style={theme === 'light' ? write.section : darkWrite.section}>
                     <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part D - Description of Observation</Text>
                     <TextInput
-                        value={description}
-                        onChangeText={setDescription}
+                        value={info.description}
                         keyboardType='default'
                         multiline={true}
                         textAlignVertical='top'
@@ -272,7 +263,8 @@ export default function ViewCard() {
                         editable={false}
                         cursorColor={color.main}
                         style={theme === 'light' ? write.textInputMultiline : darkWrite.textInputMultiline}
-                        placeholder='Describe your observation'
+                        placeholder='None...'
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                     />
                 </View>
 
@@ -280,8 +272,8 @@ export default function ViewCard() {
                 <View style={theme === 'light' ? write.section : darkWrite.section}>
                     <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>Part E - Actions & Suggestions</Text>
                     <Text style={theme === 'light' ? write.descriptiveText : darkWrite.descriptiveText}>Were you able to correct the problem?</Text>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setActions("Yes")}>
-                        {actions === "Yes" ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.actionsTaken === "Yes" ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -296,8 +288,8 @@ export default function ViewCard() {
                         )}
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Yes</Text>
                     </Pressable>
-                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setActions("No")}>
-                        {actions === "No" ? (
+                    <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
+                        {info.actionsTaken === "No" ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -317,15 +309,15 @@ export default function ViewCard() {
                         Describe the corrective action taken, or your suggestion to prevent reoccurance.
                     </Text>
                     <TextInput
-                        value={correctiveAction}
-                        onChangeText={setCorrectiveAction}
+                        value={info.suggestion}
                         keyboardType='default'
                         editable={false}
                         multiline={true}
                         selectionColor={'#0080006b'}
                         cursorColor={color.main}
                         textAlignVertical='top'
-                        placeholder='Your corrective action or suggestion'
+                        placeholder='None...'
+                        placeholderTextColor={theme === 'light' ? '#0005' : '#fff5'}
                         style={theme === 'light' ? write.textInputMultiline : darkWrite.textInputMultiline}
                     />
                 </View>
@@ -334,15 +326,15 @@ export default function ViewCard() {
                 <View style={theme === 'light' ? write.cardInfo : darkWrite.cardInfo}>
                     <View style={theme === 'light' ? write.infoCont : darkWrite.infoCont}>
                         <Text style={theme === 'light' ? write.infoContTitle : darkWrite.infoContTitle}>Card No: </Text>
-                        <Text style={theme === 'light' ? write.infoContText : darkWrite.infoContText}>{title}</Text>
+                        <Text style={theme === 'light' ? write.infoContText : darkWrite.infoContText}>{info.cardID}</Text>
                     </View>
                     <View style={theme === 'light' ? write.infoCont : darkWrite.infoCont}>
                         <Text style={theme === 'light' ? write.infoContTitle : darkWrite.infoContTitle}>Date Submitted: </Text>
-                        <Text style={theme === 'light' ? write.infoContText : darkWrite.infoContText}>{date}</Text>
+                        <Text style={theme === 'light' ? write.infoContText : darkWrite.infoContText}>{formatDate(info.dateAdded)}</Text>
                     </View>
                     <View style={theme === 'light' ? write.infoCont : darkWrite.infoCont}>
                         <Text style={theme === 'light' ? write.infoContTitle : darkWrite.infoContTitle}>Status: </Text>
-                        <Text style={theme === 'light' ? write.infoContText : darkWrite.infoContText}>{status}</Text>
+                        <Text style={theme === 'light' ? write.infoContText : darkWrite.infoContText}>{info.status}</Text>
                     </View>
                 </View>
 
