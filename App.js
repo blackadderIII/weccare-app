@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import * as Splashscreen from 'expo-splash-screen'
+import * as FileSystem from 'expo-file-system'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -146,9 +147,46 @@ export default function App() {
 
         if (getProfilPic) {
           setProfilePicture(getProfilPic)
-        }
+        } else {
+          fetch(`https://wecithelpdesk.tech/weccare/profilePictures/${user.profilepicture}`)
+            .then(response => {
+              if (!response.ok) {
+                console.log('Network response was not ok');
+                return
+              }
+              return response.blob();
+            })
+            .then(async blob => {
+              const localUri = URL.createObjectURL(blob);
 
-        // write an else statement to download profile a profile picture
+              const fileName = localUri.split('/').pop();
+              const newPath = FileSystem.documentDirectory + fileName
+
+              await AsyncStorage.setItem('profilePicture', newPath)
+                .then(async () => {
+                  await FileSystem.copyAsync({ from: localUri, to: newPath })
+                    .then(async () => {
+                      setProfilePicture(newPath)
+                    })
+                    .catch((err) => {
+                      console.log('error copying picture', err)
+                      errorToast("An error occured. Please try again later")
+                      return
+                    })
+                })
+                .catch((err) => {
+                  console.log('error saving name to async', err)
+                  errorToast("An error occured. Please try again later")
+                  return
+                })
+
+              setProfilePicture(localUri);
+            })
+            .catch(error => {
+              console.error('Error fetching image:', error);
+              return
+            });
+        }
 
       } catch (error) {
         console.error('Error reading image:', error)

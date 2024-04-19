@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs'
 import dotenv from 'dotenv'
 import mysql from 'mysql2'
 import multer from 'multer'
+import fs from 'fs'
 import * as path from 'path'
 import * as nodemailer from 'nodemailer'
 import * as https from 'https'
@@ -189,27 +190,12 @@ app.post('/changePassword', (req, res) => {
                 return res.status(200).json({ info: info[0] })
             })
         })
-
     })
 })
 
 // upload user picture
 app.post('/uploadProfilePicture', upload.single('image'), (req, res) => {
-    const filePath = `../profilePictures/${oldFileName}`
-
-    if (oldFileName) {
-        fs.unlink(filePath, (error) => {
-            if (error) {
-                console.log('error deleteing profile picture', error)
-                return res.status(401).json({ message: 'failed' })
-            }
-        })
-        oldFileName = uploadedFileName
-        res.status(200).json({ message: 'File uploaded!' });
-    } else {
-        oldFileName = uploadedFileName
-        res.status(200).json({ message: 'File uploaded!' });
-    }
+    res.status(200).json({ message: 'File uploaded!' })
 })
 
 // upadte user profile on database
