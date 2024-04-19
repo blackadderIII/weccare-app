@@ -46,7 +46,7 @@ export default function Home() {
 
     const getCards = async () => {
         try {
-            const fetchCards = await fetch(`${api}:3000/getCardAmount/${user.email}`)
+            const fetchCards = await fetch(`${api}/getCardAmount/${user.email}`)
             const response = await fetchCards.json()
 
             if (response.message === 'error executing query') {
@@ -68,7 +68,7 @@ export default function Home() {
 
     const getRecentCards = async () => {
         try {
-            const fetchRecentCards = await fetch(`${api}:3000/getRecentCards/${user.email}`)
+            const fetchRecentCards = await fetch(`${api}/getRecentCards/${user.email}`)
             const response = await fetchRecentCards.json()
 
             if (response.message === 'error executing query') {

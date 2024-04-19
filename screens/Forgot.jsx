@@ -35,7 +35,7 @@ export default function Forgot() {
         setIsLoading(true)
 
         try {
-            const sendcode = await fetch(`${api}:3000/forgotPassword`, {
+            const sendcode = await fetch(`${api}/forgotPassword`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

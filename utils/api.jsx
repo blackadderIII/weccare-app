@@ -1,1 +1,1 @@
-export const api = 'http://192.168.100.136'
+export const api = 'https://wecithelpdesk.tech:3009'

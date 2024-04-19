@@ -85,7 +85,7 @@ export default function WriteCard() {
         setIsSubmitting(true)
 
         try {
-            const submit = await fetch(`${api}:3000/submitCard`, {
+            const submit = await fetch(`${api}/submitCard`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

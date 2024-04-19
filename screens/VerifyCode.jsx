@@ -60,7 +60,7 @@ export default function VerifyCode() {
         setIsLoading(true)
 
         try {
-            const verifyCode = await fetch(`${api}:3000/verifyCode/${email}/${vCode}`)
+            const verifyCode = await fetch(`${api}/verifyCode/${email}/${vCode}`)
             const response = await verifyCode.json()
 
             if (response.message === 'error executing query') {

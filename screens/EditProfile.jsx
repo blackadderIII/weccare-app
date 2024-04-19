@@ -49,7 +49,7 @@ export default function EditProfile() {
         setIsUploading(true)
 
         try {
-            const upload = await fetch(`${api}:3000/uploadProfilePicture`, {
+            const upload = await fetch(`${api}/uploadProfilePicture`, {
                 method: 'POST',
                 body: formData,
             })
@@ -57,7 +57,7 @@ export default function EditProfile() {
 
             if (response.message === 'File Uploaded') {
 
-                const updateProfile = await fetch(`${api}:3000/updateUserProfile/${user.email}`)
+                const updateProfile = await fetch(`${api}/updateUserProfile/${user.email}`)
                 const res = await updateProfile.json()
 
                 if (res.message === 'error executing query') {
@@ -156,7 +156,7 @@ export default function EditProfile() {
         setIsSaving(true)
 
         try {
-            const saveInfo = await fetch(`${api}:3000/saveProfile`, {
+            const saveInfo = await fetch(`${api}/saveProfile`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',

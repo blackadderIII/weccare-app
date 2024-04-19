@@ -66,7 +66,7 @@ export default function SignUp() {
         setIsLoading(true)
 
         try {
-            const create = await fetch(`${api}:3000/createUser`, {
+            const create = await fetch(`${api}/createUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

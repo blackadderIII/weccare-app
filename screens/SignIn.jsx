@@ -37,7 +37,7 @@ export default function SignIn() {
         setIsLoading(true)
 
         try {
-            const loginApi = await fetch(`${api}:3000/login`, {
+            const loginApi = await fetch(`${api}/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

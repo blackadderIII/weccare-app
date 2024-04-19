@@ -30,7 +30,7 @@ export default function Cards() {
     const fetchCards = async () => {
         if (status === 'Pending') {
             try {
-                const fetchPendingCards = await fetch(`${api}:3000/getPendingCards/${email}`)
+                const fetchPendingCards = await fetch(`${api}/getPendingCards/${email}`)
                 const response = await fetchPendingCards.json()
 
                 if (response.message === 'error executing query') {
@@ -60,7 +60,7 @@ export default function Cards() {
 
         else if (status === 'Completed') {
             try {
-                const fetchCompletedCards = await fetch(`${api}:3000/getCompletedCards/${email}`)
+                const fetchCompletedCards = await fetch(`${api}/getCompletedCards/${email}`)
                 const response = await fetchCompletedCards.json()
 
                 if (response.message === 'error executing query') {
@@ -91,7 +91,7 @@ export default function Cards() {
         else if (status === 'Uncompleted') {
 
             try {
-                const fetchUncompletedCards = await fetch(`${api}:3000/getUncompletedCards/${email}`)
+                const fetchUncompletedCards = await fetch(`${api}/getUncompletedCards/${email}`)
                 const response = await fetchUncompletedCards.json()
 
                 if (response.message === 'error executing query') {

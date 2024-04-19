@@ -42,7 +42,7 @@ export default function ChangePassword() {
         setIsLoading(true)
 
         try {
-            const changePass = await fetch(`${api}:3000/changePassword`, {
+            const changePass = await fetch(`${api}/changePassword`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
