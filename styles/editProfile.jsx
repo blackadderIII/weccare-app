@@ -31,6 +31,7 @@ export const edit = StyleSheet.create({
         position: 'absolute',
         bottom: verticalScale(-10),
         alignSelf: 'center',
+        zIndex: 5,
     },
     sectionHeader: {
         width: '100%',
@@ -110,6 +111,7 @@ export const darkEdit = StyleSheet.create({
         position: 'absolute',
         bottom: verticalScale(-10),
         alignSelf: 'center',
+        zIndex: 5,
     },
     sectionHeader: {
         width: '100%',

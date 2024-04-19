@@ -48,7 +48,7 @@ export const write = StyleSheet.create({
         fontFamily: 'poppins',
         padding: moderateScale(10),
         backgroundColor: '#0001',
-        minHeight: verticalScale(100),
+        // minHeight: verticalScale(100),
         maxHeight: verticalScale(200),
         borderRadius: moderateScale(7),
     },

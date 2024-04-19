@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar'
 import { useFonts } from 'expo-font'
 import * as Splashscreen from 'expo-splash-screen'
+import * as FileSystem from 'expo-file-system'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -15,12 +16,14 @@ import EditProfile from './screens/EditProfile'
 import Forgot from './screens/Forgot'
 import Home from './screens/Home'
 import Loading from './screens/Loading'
+import OnboardingScreen from './screens/Onboarding'
 import PrivacyPolicy from './screens/PrivacyPolicy'
 import ResetPassword from './screens/ResetPassword'
 import Settings from './screens/Settings'
 import SignIn from './screens/SignIn'
 import SignUp from './screens/Signup'
 import TermsCondition from './screens/TermsCondition'
+import Theme from './screens/Theme';
 import VerifyCode from './screens/VerifyCode'
 import ViewCard from './screens/ViewCard'
 import WriteCard from './screens/WriteCard'
@@ -28,8 +31,10 @@ import WriteCard from './screens/WriteCard'
 // utils
 import { color } from './utils/color'
 import { ThemeContext } from './utils/theme'
+import { ProfilePictureContext } from './utils/profilePicture';
 import { UserContext } from './utils/user'
 import { verticalScale } from './utils/metrics';
+import { errorToast } from './utils/toasts';
 
 const Stack = createNativeStackNavigator()
 
@@ -39,6 +44,8 @@ export default function App() {
 
   const [theme, setTheme] = useState(null)
   const [user, setUser] = useState(null)
+  const [profilePicture, setProfilePicture] = useState(null)
+  const [isFirstTime, setIsFirstTime] = useState(false)
 
   const [fontsLoaded] = useFonts({
     'poppins': require('./assets/fonts/Poppins-Regular.ttf'),
@@ -56,7 +63,7 @@ export default function App() {
         if (storedTheme) {
           setTheme(JSON.parse(storedTheme))
         } else {
-          setTheme('dark')
+          setTheme('light')
         }
       }
       catch (error) {
@@ -78,6 +85,29 @@ export default function App() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
+  // check for user first time
+  const checkFirstTime = async () => {
+    try {
+      const getFirstTime = await AsyncStorage.getItem('firstTime')
+      if (getFirstTime) {
+        if (getFirstTime !== 'false') {
+          setIsFirstTime(true)
+        } else {
+          setIsFirstTime(false)
+        }
+      } else {
+        await AsyncStorage.setItem('firstTime', 'true')
+        setIsFirstTime(true)
+      }
+
+    } catch (error) {
+      console.log('Error checking user first time', error)
+      errorToast('An error occured. Please try again later')
+      return
+    }
+  }
+
+  // load user
   useEffect(() => {
     const loadUser = async () => {
       try {
@@ -95,18 +125,83 @@ export default function App() {
 
     loadUser()
 
+    checkFirstTime()
+
   }, [])
 
   useEffect(() => {
     if (user) {
       AsyncStorage.setItem('user', JSON.stringify(user))
+    } else {
+      AsyncStorage.removeItem('user')
     }
+
+    loadProfilePicture()
   }, [user])
 
-  console.log(user)
+  // load profile picture
+  const loadProfilePicture = async () => {
+    if (user && user.profilepicture !== 'default.jpg') {
+      try {
+        const getProfilPic = await AsyncStorage.getItem('profilePicture')
+
+        if (getProfilPic) {
+          setProfilePicture(getProfilPic)
+        } else {
+          fetch(`https://wecithelpdesk.tech/weccare/profilePictures/${user.profilepicture}`)
+            .then(response => {
+              if (!response.ok) {
+                console.log('Network response was not ok');
+                return
+              }
+              return response.blob();
+            })
+            .then(async blob => {
+              const localUri = URL.createObjectURL(blob);
+
+              const fileName = localUri.split('/').pop();
+              const newPath = FileSystem.documentDirectory + fileName
+
+              await AsyncStorage.setItem('profilePicture', newPath)
+                .then(async () => {
+                  await FileSystem.copyAsync({ from: localUri, to: newPath })
+                    .then(async () => {
+                      setProfilePicture(newPath)
+                    })
+                    .catch((err) => {
+                      console.log('error copying picture', err)
+                      errorToast("An error occured. Please try again later")
+                      return
+                    })
+                })
+                .catch((err) => {
+                  console.log('error saving name to async', err)
+                  errorToast("An error occured. Please try again later")
+                  return
+                })
+
+              setProfilePicture(localUri);
+            })
+            .catch(error => {
+              console.error('Error fetching image:', error);
+              return
+            });
+        }
+
+      } catch (error) {
+        console.error('Error reading image:', error)
+        errorToast("An error occured. Please try again later")
+        return
+      }
+    }
+  }
 
   if (!fontsLoaded) {
-    return <Loading />
+    return (
+      <ThemeContext.Provider value={{ theme }}>
+        <Loading />
+      </ThemeContext.Provider>
+    )
   } else {
     Splashscreen.hideAsync();
   }
@@ -114,36 +209,40 @@ export default function App() {
   return (
     <>
       <UserContext.Provider value={{ user, setUser }}>
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <StatusBar style={theme === 'light' ? 'dark' : 'light'} backgroundColor={theme === 'light' ? color.background : color.darkBackground} />
-          <NavigationContainer>
-            <Stack.Navigator>
-              {user ?
-                <Stack.Group>
-                  <Stack.Screen name='home' component={Home} options={{ headerShown: false, animation: 'fade' }} />
-                  <Stack.Screen name='cards' component={Cards} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='writeCard' component={WriteCard} options={{ headerShown: false, animation: 'slide_from_bottom' }} />
-                  <Stack.Screen name='settings' component={Settings} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='terms' component={TermsCondition} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='privacy' component={PrivacyPolicy} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='about' component={About} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='changePass' component={ChangePassword} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='editProfile' component={EditProfile} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='viewCard' component={ViewCard} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                </Stack.Group>
-                :
-                <Stack.Group>
-                  <Stack.Screen name='signin' component={SignIn} options={{ headerShown: false, animation: 'simple_push' }} />
-                  <Stack.Screen name='signup' component={SignUp} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='forgotPassword' component={Forgot} options={{ headerShown: false, animation: 'fade_from_bottom' }} />
-                  <Stack.Screen name='verifyCode' component={VerifyCode} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                  <Stack.Screen name='resetPassword' component={ResetPassword} options={{ headerShown: false, animation: 'slide_from_right' }} />
-                </Stack.Group>
-              }
-            </Stack.Navigator>
-          </NavigationContainer>
-          <FlashMessage position='top' statusBarHeight={verticalScale(30)} floating={true} />
-        </ThemeContext.Provider>
+        <ProfilePictureContext.Provider value={{ profilePicture, setProfilePicture }}>
+          <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+            <StatusBar style={theme === 'light' ? 'dark' : 'light'} backgroundColor={theme === 'light' ? color.background : color.darkBackground} />
+            <NavigationContainer>
+              <Stack.Navigator initialRouteName={isFirstTime && !user ? 'onboarding' : 'signin'}>
+                {user ?
+                  <Stack.Group>
+                    <Stack.Screen name='home' component={Home} options={{ headerShown: false, animation: 'slide_from_left' }} />
+                    <Stack.Screen name='cards' component={Cards} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='writeCard' component={WriteCard} options={{ headerShown: false, animation: 'slide_from_bottom' }} />
+                    <Stack.Screen name='settings' component={Settings} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='theme' component={Theme} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='terms' component={TermsCondition} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='privacy' component={PrivacyPolicy} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='about' component={About} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='changePass' component={ChangePassword} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='editProfile' component={EditProfile} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='viewCard' component={ViewCard} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                  </Stack.Group>
+                  :
+                  <Stack.Group>
+                    <Stack.Screen name='signin' component={SignIn} options={{ headerShown: false, animation: 'simple_push' }} />
+                    <Stack.Screen name='signup' component={SignUp} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='forgotPassword' component={Forgot} options={{ headerShown: false, animation: 'fade_from_bottom' }} />
+                    <Stack.Screen name='verifyCode' component={VerifyCode} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='resetPassword' component={ResetPassword} options={{ headerShown: false, animation: 'slide_from_right' }} />
+                    <Stack.Screen name='onboarding' component={OnboardingScreen} options={{ headerShown: false, animation: 'simple_push' }} />
+                  </Stack.Group>
+                }
+              </Stack.Navigator>
+            </NavigationContainer>
+            <FlashMessage position='top' statusBarHeight={verticalScale(30)} floating={true} />
+          </ThemeContext.Provider>
+        </ProfilePictureContext.Provider>
       </UserContext.Provider>
     </>
   );

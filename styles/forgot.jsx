@@ -37,6 +37,7 @@ export const forgot = StyleSheet.create({
         padding: moderateScale(10),
         backgroundColor: "#0001",
         borderRadius: moderateScale(7),
+        color: color.jet
     },
     buttonContainer: {
         width: '100%',
@@ -90,6 +91,7 @@ export const darkForgot = StyleSheet.create({
         padding: moderateScale(10),
         backgroundColor: "#0004",
         borderRadius: moderateScale(7),
+        color: color.whiteText
     },
     buttonContainer: {
         width: '100%',

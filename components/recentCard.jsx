@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         paddingLeft: horizontalScale(20),
     },
     cardNumber: {
-        fontFamily: 'poppins-b',
+        fontFamily: 'poppins-s',
         fontSize: moderateScale(18),
         color: color.jet
     },
@@ -93,9 +93,9 @@ const darkStyles = StyleSheet.create({
         paddingLeft: horizontalScale(20),
     },
     cardNumber: {
-        fontFamily: 'poppins-b',
+        fontFamily: 'poppins-s',
         fontSize: moderateScale(18),
-        color: '#ffffff'
+        color: color.whiteText
     },
     bottomInfo: {
         flexDirection: 'row',

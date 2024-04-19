@@ -50,11 +50,11 @@ const darkStyles = StyleSheet.create({
     },
     headerIcon: {
         fontSize: moderateScale(20),
-        color: '#ffffff',
+        color: color.whiteText,
     },
     headerText: {
         fontFamily: 'poppins-s',
         fontSize: moderateScale(32),
-        color: '#ffffff'
+        color: color.whiteText
     },
 })

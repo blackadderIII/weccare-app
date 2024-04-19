@@ -10,6 +10,9 @@ export default function Designation({ theme, isVisible, toggleVisibility, onSele
         'Manager',
         'Head of Department',
         'Supervisor',
+        'Graduate Trainee',
+        'National Service Personel',
+        'Visitor',
         'Other'
     ]
 
@@ -48,7 +51,7 @@ const style = StyleSheet.create({
     modal: {
         marginHorizontal: horizontalScale(20),
         padding: horizontalScale(20),
-        height: verticalScale(300),
+        height: verticalScale(500),
         borderRadius: moderateScale(20),
         backgroundColor: color.white,
     },

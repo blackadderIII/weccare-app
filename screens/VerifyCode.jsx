@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
-import { Image, View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native'
+import { ActivityIndicator, Image, View, ScrollView, Text, TextInput, TouchableOpacity } from 'react-native'
+import { useNavigation, useRoute } from '@react-navigation/native'
 
 import HeaderComponent from '../components/headerComponent'
 
@@ -9,10 +10,17 @@ import otp from '../assets/icons/otp.png'
 
 import { color } from '../utils/color'
 import { ThemeContext } from '../utils/theme'
+import { errorToast } from '../utils/toasts'
+import { api } from '../utils/api'
 
 export default function VerifyCode() {
 
     const { theme } = useContext(ThemeContext)
+
+    const navigation = useNavigation()
+    const route = useRoute()
+
+    const { email } = route.params
 
     const [verificationCode, setVerificationCode] = useState([]);
     const [focusedInput, setFocusedInput] = useState();
@@ -41,10 +49,49 @@ export default function VerifyCode() {
         setFocusedInput(-1);
     };
 
+    const verifyCode = async () => {
+        const vCode = verificationCode.join('')
+
+        if (!verificationCode) {
+            errorToast("Enter verification code")
+            return
+        }
+
+        setIsLoading(true)
+
+        try {
+            const verifyCode = await fetch(`${api}/verifyCode/${email}/${vCode}`)
+            const response = await verifyCode.json()
+
+            if (response.message === 'error executing query') {
+                setIsLoading(false)
+                errorToast("An error occured. Please try again later")
+                return
+            }
+
+            if (response.message === 'incorrect code') {
+                setIsLoading(false)
+                errorToast("Incorrect code. Please check and try again")
+                return
+            }
+
+            setIsLoading(false)
+            navigation.navigate('resetPassword', { email: email })
+            return
+
+        } catch (error) {
+            setIsLoading(false)
+            console.log('Error verifying code', error)
+            errorToast("Can't reach servers. Please try again later.")
+            return
+        }
+    }
 
     return (
         <View style={theme === 'light' ? verify.main : darkVerify.main}>
             <HeaderComponent
+                onPress={() => navigation.goBack()}
+                theme={theme}
                 title={'Verify Email'}
             />
 
@@ -59,7 +106,7 @@ export default function VerifyCode() {
                     {inputs.map((item, index) => (
                         <TextInput
                             key={index}
-                            style={[theme === 'light' ? verify.textInputBlur : darkVerify.textInputBlur, focusedInput === index && theme === 'light' ? verify.textInput : darkVerify.textInput]}
+                            style={(theme === 'light' ? verify.textInputBlur : darkVerify.textInputBlur, focusedInput === index && theme === 'light' ? verify.textInput : darkVerify.textInput)}
                             onFocus={() => handleFocus(index)}
                             onBlur={handleBlur}
                             keyboardType="numeric"
@@ -73,8 +120,8 @@ export default function VerifyCode() {
                     ))}
                 </View>
 
-                <TouchableOpacity activeOpacity={0.7} style={theme === 'light' ? verify.buttonContainer : darkVerify.buttonContainer}>
-                    {isLoading ? <ActivityIndicator color={'white'} size={'small'} style={theme === 'light' ? verify.button : darkVerify.button} /> : <Text style={theme === 'light' ? verify.button : darkVerify.button}>Send</Text>}
+                <TouchableOpacity activeOpacity={0.7} onPress={() => verifyCode()} style={theme === 'light' ? verify.buttonContainer : darkVerify.buttonContainer}>
+                    {isLoading ? <ActivityIndicator color={'white'} size={'small'} style={theme === 'light' ? verify.button : darkVerify.button} /> : <Text style={theme === 'light' ? verify.button : darkVerify.button}>Verify</Text>}
                 </TouchableOpacity>
 
                 <Text style={theme === 'light' ? verify.descriptionSmall : darkVerify.descriptionSmall}>

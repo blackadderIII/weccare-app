@@ -32,7 +32,7 @@ export const about = StyleSheet.create({
         objectFit: 'contain',
     },
     textContainer: {
-        paddingHorizontal: horizontalScale(30),
+        paddingHorizontal: horizontalScale(20),
         marginBottom: verticalScale(10),
     },
     text: {
@@ -70,7 +70,7 @@ export const darkAbout = StyleSheet.create({
         objectFit: 'contain',
     },
     textContainer: {
-        paddingHorizontal: horizontalScale(30),
+        paddingHorizontal: horizontalScale(20),
         marginBottom: verticalScale(10),
     },
     text: {
