@@ -5,6 +5,7 @@ import mysql from 'mysql2'
 import multer from 'multer'
 import * as path from 'path'
 import * as nodemailer from 'nodemailer'
+import * as https from 'https'
 
 dotenv.config()
 const app = express()
@@ -28,12 +29,21 @@ const transporter = nodemailer.createTransport({
     }
 })
 
+const serverOptions = {
+    key: fs.readFileSync('../../../../../../../etc/letsencrypt/live/wecithelpdesk.tech/privkey.pem'),
+    cert: fs.readFileSync('../../../../../../../etc/letsencrypt/live/wecithelpdesk.tech/fullchain.pem')
+}
+
+const httpsServer = https.createServer(serverOptions, app)
+
+// --------------------------------------------------------------------------------
 
 let uploadedFileName
+let oldFileName
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, './profilePictures/');
+        cb(null, '../profilePictures/');
     },
     filename: (req, file, cb) => {
         const fileName = Math.floor(Math.random() * 9000000000) + 1000000000;
@@ -185,7 +195,21 @@ app.post('/changePassword', (req, res) => {
 
 // upload user picture
 app.post('/uploadProfilePicture', upload.single('image'), (req, res) => {
-    res.status(200).json({ message: 'File Uploaded' })
+    const filePath = `../profilePictures/${oldFileName}`
+
+    if (oldFileName) {
+        fs.unlink(filePath, (error) => {
+            if (error) {
+                console.log('error deleteing profile picture', error)
+                return res.status(401).json({ message: 'failed' })
+            }
+        })
+        oldFileName = uploadedFileName
+        res.status(200).json({ message: 'File uploaded!' });
+    } else {
+        oldFileName = uploadedFileName
+        res.status(200).json({ message: 'File uploaded!' });
+    }
 })
 
 // upadte user profile on database
@@ -353,6 +377,17 @@ app.get('/getCardAmount/:email', (req, res) => {
     })
 })
 
+app.get('/departments', (req, res) => {
+    const query = "SELECT * FROM departments"
+    conn.query(query, (err, info) => {
+        if (err) {
+            console.log(dbError, err)
+            return res.status(400).json({ message: dbError })
+        }
+        return res.json({ info })
+    })
+})
+
 // fetch pending cards
 app.get('/getPendingCards/:email', (req, res) => {
     const email = req.params.email
@@ -438,10 +473,10 @@ app.get('/getRecentCards/:email', (req, res) => {
 
 // submit card
 app.post('/submitCard', (req, res) => {
-    const { actionsTaken, assetsEquipment, cardID, cardTitle, condition, description, environmental, observationType, observerCountry, observerDepartment, observerDesignation, observerEmail, observerLocation, observerName, peopleActs, procedureSystem, quality, security, status, suggestion, } = req.body
-    const query = "INSERT INTO `cards` (`cardID`,`cardTitle`,`observerName`,`observerEmail`,`observerDepartment`,`observerDesignation`,`observerCountry`,`observerLocation`,`observationType`,`peopleActs`,`condition`,`environmental`,`assetsEquipment`,`procedureSystem`,`quality`,`security`,`description`,`actionsTaken`,`suggestion`,`status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+    const { actionsTaken, assetsEquipment, cardID, cardTitle, condition, description, environmental, observationType, observerCountry, observerDepartment, observerDesignation, observerEmail, observerLocation, observerFirstname, observerLastname, peopleActs, procedureSystem, quality, security, status, suggestion, } = req.body
+    const query = "INSERT INTO `cards` (`cardID`,`cardTitle`,`observerFirstname`,`observerLastname`,`observerEmail`,`observerDepartment`,`observerDesignation`,`observerCountry`,`observerLocation`,`observationType`,`peopleActs`,`condition`,`environmental`,`assetsEquipment`,`procedureSystem`,`quality`,`security`,`description`,`actionsTaken`,`suggestion`,`status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
-    conn.query(query, [cardID, cardTitle, observerName, observerEmail, observerDepartment, observerDesignation, observerCountry, observerLocation, observationType, `${peopleActs}`, condition, environmental, assetsEquipment, procedureSystem, quality, security, description, actionsTaken, suggestion, status], (err, info) => {
+    conn.query(query, [cardID, cardTitle, observerFirstname, observerLastname, observerEmail, observerDepartment, observerDesignation, observerCountry, observerLocation, observationType, `${peopleActs}`, condition, environmental, assetsEquipment, procedureSystem, quality, security, description, actionsTaken, suggestion, status], (err, info) => {
         if (err) {
             console.log(dbError, err)
             return res.status(400).json({ message: dbError })
@@ -460,6 +495,6 @@ app.post('/submitCard', (req, res) => {
 const port = process.env.PORT
 
 // listen
-app.listen(port, '0.0.0.0', () => {
+httpsServer.listen(port, '0.0.0.0', () => {
     console.log(`listening on port ${port}`)
 })

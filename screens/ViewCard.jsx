@@ -44,7 +44,7 @@ export default function ViewCard() {
                     <View style={theme === 'light' ? write.textInputContainer : darkWrite.textInputContainer}>
                         <Text style={theme === 'light' ? write.textInputTitle : darkWrite.textInputTitle}>Name of Observer</Text>
                         <TextInput
-                            value={info.observerName}
+                            value={info.observerFirstname + ' ' + info.observerLastname}
                             editable={false}
                             style={theme === 'light' ? write.textInput : darkWrite.textInput}
                             selectionColor={"#0080006b"}
@@ -138,7 +138,7 @@ export default function ViewCard() {
                 <View style={theme === 'light' ? write.section : darkWrite.section}>
                     <Text style={theme === 'light' ? write.titleText : darkWrite.titleText}>*Part C - Observation</Text>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} >
-                        {info.peopleActs === 'true' ? (
+                        {info.peopleActs ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -154,7 +154,7 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>People | Acts</Text>
                     </Pressable>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
-                        {info.condition === 'true' ? (
+                        {info.condition ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -170,7 +170,7 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Condition</Text>
                     </Pressable>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
-                        {info.environmental === 'true' ? (
+                        {info.environmental ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -186,7 +186,7 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Environmental</Text>
                     </Pressable>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
-                        {info.assetsEquipment === 'true' ? (
+                        {info.assetsEquipment ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -202,7 +202,7 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Asset | Equipment</Text>
                     </Pressable>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
-                        {info.procedureSystem === 'true' ? (
+                        {info.procedureSystem ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -218,7 +218,7 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Procedure | System</Text>
                     </Pressable>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
-                        {info.quality === 'true' ? (
+                        {info.quality ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
@@ -234,7 +234,7 @@ export default function ViewCard() {
                         <Text style={theme === 'light' ? write.radioText : darkWrite.radioText}>Quality</Text>
                     </Pressable>
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
-                        {info.security === 'true' ? (
+                        {info.security ? (
                             <AntDesign
                                 name='checkcircle'
                                 size={20}
