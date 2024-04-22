@@ -55,7 +55,7 @@ export default function EditProfile() {
             })
             const response = await upload.json()
 
-            if (response.message === 'File Uploaded') {
+            if (response.message === 'File uploaded!') {
 
                 const updateProfile = await fetch(`${api}/updateUserProfile/${user.email}`)
                 const res = await updateProfile.json()

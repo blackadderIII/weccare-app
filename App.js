@@ -148,44 +148,40 @@ export default function App() {
         if (getProfilPic) {
           setProfilePicture(getProfilPic)
         } else {
-          fetch(`https://wecithelpdesk.tech/weccare/profilePictures/${user.profilepicture}`)
-            .then(response => {
-              if (!response.ok) {
-                console.log('Network response was not ok');
+          const imageURL = `https://wecithelpdesk.tech/weccare/profilePictures/${user.profilepicture}`
+          try {
+            const fileName = imageURL.split('/').pop();
+
+            // download the image
+            const newPath = FileSystem.documentDirectory + fileName
+            await FileSystem.downloadAsync(imageURL, newPath)
+
+            console.log('Image downloaded:', newPath)
+
+            await AsyncStorage.setItem('profilePicture', newPath)
+              .then(async () => {
+                await FileSystem.copyAsync({ from: localUri, to: newPath })
+                  .then(async () => {
+                    setProfilePicture(newPath)
+                  })
+                  .catch((err) => {
+                    console.log('error copying picture', err)
+                    errorToast("An error occured. Please try again later")
+                    return
+                  })
+              })
+              .catch((err) => {
+                console.log('error saving name to async', err)
+                errorToast("An error occured. Please try again later")
                 return
-              }
-              return response.blob();
-            })
-            .then(async blob => {
-              const localUri = URL.createObjectURL(blob);
+              })
 
-              const fileName = localUri.split('/').pop();
-              const newPath = FileSystem.documentDirectory + fileName
-
-              await AsyncStorage.setItem('profilePicture', newPath)
-                .then(async () => {
-                  await FileSystem.copyAsync({ from: localUri, to: newPath })
-                    .then(async () => {
-                      setProfilePicture(newPath)
-                    })
-                    .catch((err) => {
-                      console.log('error copying picture', err)
-                      errorToast("An error occured. Please try again later")
-                      return
-                    })
-                })
-                .catch((err) => {
-                  console.log('error saving name to async', err)
-                  errorToast("An error occured. Please try again later")
-                  return
-                })
-
-              setProfilePicture(localUri);
-            })
-            .catch(error => {
-              console.error('Error fetching image:', error);
-              return
-            });
+            setProfilePicture(localUri);
+          }
+          catch (error) {
+            console.log('Error downloading image:', error);
+            return
+          };
         }
 
       } catch (error) {

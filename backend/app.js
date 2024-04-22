@@ -40,7 +40,6 @@ const httpsServer = https.createServer(serverOptions, app)
 // --------------------------------------------------------------------------------
 
 let uploadedFileName
-let oldFileName
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
