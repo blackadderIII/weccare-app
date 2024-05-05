@@ -148,7 +148,7 @@ export default function App() {
         if (getProfilPic) {
           setProfilePicture(getProfilPic)
         } else {
-          const imageURL = `https://wecithelpdesk.tech/weccare/profilePictures/${user.profilepicture}`
+          const imageURL = `https://weccare.app/profilePictures/${user.profilepicture}`
           try {
             const fileName = imageURL.split('/').pop();
 
