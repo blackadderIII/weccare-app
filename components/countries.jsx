@@ -12,7 +12,8 @@ export default function Countries({ theme, isVisible, toggleVisibility, onSelect
 
     const getCountries = async () => {
         try {
-            const fetchCountries = await fetch('https://restcountries.com/v3.1/all')
+            // const fetchCountries = await fetch('https://restcountries.com/v3.1/all')
+            const fetchCountries = await fetch('https://restcountries.com/v3.1/all?fields=name,cca2,flags,currencies,demonyms,population')
             const countries = await fetchCountries.json()
 
             setIsLoading(false)
