@@ -9,7 +9,8 @@
     "updates": {
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/d9a7207c-092b-4f15-a127-9971c0edc1f5"
     },
     "splash": {
       "image": "./assets/splash.png",
@@ -39,6 +40,9 @@
       "eas": {
         "projectId": "d9a7207c-092b-4f15-a127-9971c0edc1f5"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
