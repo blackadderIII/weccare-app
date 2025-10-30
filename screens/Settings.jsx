@@ -12,8 +12,8 @@ import { UserContext } from '../utils/user'
 import { ProfilePictureContext } from '../utils/profilePicture';
 import { color } from '../utils/color';
 
-// const profilePic = require('../assets/default.jpg')
-const profilePic = require('../profilePictures/8671783526.jpg')
+const profilePic = require('../assets/default.jpg')
+// const profilePic = require('../profilePictures/8671783526.jpg')
 
 export default function Settings() {
 
