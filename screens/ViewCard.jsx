@@ -87,7 +87,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.observationType === "Positive" ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -103,7 +103,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.observationType === "Substandard Hazard" ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -119,7 +119,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.observationType === "Improvement" ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -140,7 +140,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} >
                         {info.peopleActs ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -156,7 +156,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.condition ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -172,7 +172,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.environmental ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -188,7 +188,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.assetsEquipment ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -204,7 +204,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.procedureSystem ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -220,7 +220,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.quality ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -236,7 +236,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.security ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -275,7 +275,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.actionsTaken === "Yes" ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
@@ -291,7 +291,7 @@ export default function ViewCard() {
                     <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn}>
                         {info.actionsTaken === "No" ? (
                             <AntDesign
-                                name='checkcircle'
+                                name='check-circle'
                                 size={20}
                                 color={color.main}
                             />
