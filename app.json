@@ -6,6 +6,11 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
+    },
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -32,7 +37,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "3099e03a-bcc1-4916-84a3-06cecdb1ab22"
+        "projectId": "d9a7207c-092b-4f15-a127-9971c0edc1f5"
       }
     }
   }

@@ -221,7 +221,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Positive")}>
                             {typeOfObservation === "Positive" ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -237,7 +237,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Substandard Hazard")}>
                             {typeOfObservation === "Substandard Hazard" ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -253,7 +253,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setTypeOfObservation("Improvement")}>
                             {typeOfObservation === "Improvement" ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -274,7 +274,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setPeopleActs(!peopleActs)}>
                             {peopleActs ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -290,7 +290,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setCondition(!condition)}>
                             {condition ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -306,7 +306,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setEnvironmental(!environmental)}>
                             {environmental ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -322,7 +322,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setAssetEquipment(!assetEquipment)}>
                             {assetEquipment ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -338,7 +338,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setProcedureSystem(!procedureSystem)}>
                             {procedureSystem ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -354,7 +354,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setQuality(!quality)}>
                             {quality ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -370,7 +370,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => setSecurity(!security)}>
                             {security ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -409,7 +409,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => { actions === 'Yes' ? setActions(null) : setActions("Yes") }}>
                             {actions === "Yes" ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
@@ -425,7 +425,7 @@ export default function WriteCard() {
                         <Pressable style={theme === 'light' ? write.radioBtn : darkWrite.radioBtn} onPress={() => { actions === 'No' ? setActions(null) : setActions("No") }}>
                             {actions === "No" ? (
                                 <AntDesign
-                                    name='checkcircle'
+                                    name='check-circle'
                                     size={20}
                                     color={color.main}
                                 />
